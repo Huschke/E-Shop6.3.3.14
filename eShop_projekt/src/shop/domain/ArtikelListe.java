@@ -15,7 +15,9 @@ import java.io.IOException;
 
 
 
+
 import shop.exceptions.ArtikelExistiertBereitsException;
+import shop.exceptions.ArtikelMitNummerNichtGefundenException;
 import shop.exceptions.ArtikelNichtGefundenException;
 import shop.persitence.FilePersistenceManager;
 import shop.persitence.PersistenceManager;
@@ -122,6 +124,21 @@ public class ArtikelListe {
 		
 	}
 	
+	/**
+	 * Methode die einen Artikel zuück gibt, nach dem mit der ID gesucht werden kann
+	 * @param artikelID
+	 * @throws ArtikelMitNummerNichtGefundenException   
+	 */
+	public Artikel getArtikel(String artikelID) throws ArtikelNichtGefundenException, ArtikelMitNummerNichtGefundenException {
+		Iterator<Artikel> iter = artikelListe.iterator();
+		while (iter.hasNext()) {
+			Artikel artikel = iter.next();
+			if(artikel.getArtikelID() == artikelID) {
+				return artikel;
+			}
+		}
+		throw new ArtikelMitNummerNichtGefundenException(artikelID, " - ind 'getArtikel'!");
+	}
 	
 	/**
 	 * Methode zum Suchen von artikeln anhand von einem Namen (String)

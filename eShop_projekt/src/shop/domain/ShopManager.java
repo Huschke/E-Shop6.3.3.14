@@ -11,7 +11,14 @@ import java.util.Vector;
 
 
 
+
+
+
+import shop.exceptions.ArtikelExistiertBereitsException;
+import shop.exceptions.ArtikelMitNummerNichtGefundenException;
+import shop.exceptions.ArtikelNichtGefundenException;
 import shop.valueobjects.Artikel;
+import shop.valueobjects.Mitarbeiter;
 
 public class ShopManager {
 
@@ -47,11 +54,28 @@ public class ShopManager {
 		
 	}
 	
+	
+	public void fuegeEinenArtikelEin(Mitarbeiter mitarbeiter, String artikelId, String artikelName, float preis, int bestand, boolean verfuegbar) throws ArtikelExistiertBereitsException {
+		Artikel artikel = new Artikel(artikelId, artikelName, preis, bestand, verfuegbar);
+		listeArtikel.einfuegenArtikel(artikel);
+		
+		//TODO: EREIGNISSE
+	}
+	
+	public void fuegeMassengutEin() {
+		//TODO Massenartikel
+	}
+	
+	public Artikel gibEinenArtikel(String artikelID) throws ArtikelNichtGefundenException, ArtikelMitNummerNichtGefundenException {
+		
+		return listeArtikel.getArtikel(artikelID);
+	}
+	
 	public ArrayList<Artikel> gibAlleArtikel() {
 		return listeArtikel.getArtikelBestand();
 	}
 	
-	
+		
 	public void schreibeArtikel() throws IOException {
 		
 		listeArtikel.schreibeDaten(datei+"_Artikel.csv");
@@ -82,6 +106,8 @@ public class ShopManager {
 			System.out.println("Error beim Sortieren");
 		}
 	}
+	
+	public 
 	
 	public void starteMitarbeiterbereich() {
 		
