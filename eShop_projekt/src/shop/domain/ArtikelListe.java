@@ -87,7 +87,7 @@ public class ArtikelListe {
 				pm.speichereArtikel(a);				
 			}
 		}
-		//SChlieﬂen der PM-Schnittstelle
+		//Schlieﬂen der PM-Schnittstelle
 		pm.close();
 		
 	}
@@ -140,6 +140,8 @@ public class ArtikelListe {
 		throw new ArtikelMitNummerNichtGefundenException(artikelID, " - ind 'getArtikel'!");
 	}
 	
+	
+	
 	/**
 	 * Methode zum Suchen von artikeln anhand von einem Namen (String)
 	 * @param name Name des Artikel
@@ -173,11 +175,26 @@ public class ArtikelListe {
 		
 	
 	/**
-	 * Methode zum rueckgeben des Bestandes
+	 * Methode zum rueckgeben des unsortierten Bestandes
 	 * @return artikelListe
 	 */
 	public ArrayList<Artikel> getArtikelBestand() {
 		return artikelListe;
+	}
+	
+	/**
+	 * Methode zum Zurueckgeben des nach der ID sortierten Bestandes
+	 * @return
+	 */
+	public ArrayList<Artikel> getArtikelBestandIDSortiert() {
+		final ArrayList<Artikel> ergebnis = new ArrayList<Artikel>();
+				
+		return null;
+	}
+	
+	public ArrayList<Artikel> getArtikelBestandNameSortiert() {
+		//TODO
+		return null;
 	}
 	
 	

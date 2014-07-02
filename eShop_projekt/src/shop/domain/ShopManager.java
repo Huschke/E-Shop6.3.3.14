@@ -54,7 +54,23 @@ public class ShopManager {
 		
 	}
 	
+	//
+	//Artikel-Methoden
+	//
 	
+	
+	
+	/**
+	 * Methode zum Einfuegen eines Artikels in die Bestandsliste. Zusätzlich wird ein neues Ereigniss
+	 * in die Datei geschrieben
+	 * @param mitarbeiter
+	 * @param artikelId
+	 * @param artikelName
+	 * @param preis
+	 * @param bestand
+	 * @param verfuegbar
+	 * @throws ArtikelExistiertBereitsException
+	 */
 	public void fuegeEinenArtikelEin(Mitarbeiter mitarbeiter, String artikelId, String artikelName, float preis, int bestand, boolean verfuegbar) throws ArtikelExistiertBereitsException {
 		Artikel artikel = new Artikel(artikelId, artikelName, preis, bestand, verfuegbar);
 		listeArtikel.einfuegenArtikel(artikel);
@@ -62,23 +78,45 @@ public class ShopManager {
 		//TODO: EREIGNISSE
 	}
 	
+	
+	/**
+	 * 
+	 */
 	public void fuegeMassengutEin() {
 		//TODO Massenartikel
 	}
 	
+	public void artikelBestandVeraendern (Mitarbeiter mitarbeiter, String artikelId, String artikelName, float preis, int bestand, boolean verfuegbar) {
+		
+	}
+	
+	/**
+	 * Methode zum Rueckegeben eines Artikel-Obektes
+	 * @param artikelID
+	 * @return Artikel-Objekt
+	 * @throws ArtikelNichtGefundenException
+	 * @throws ArtikelMitNummerNichtGefundenException
+	 */
 	public Artikel gibEinenArtikel(String artikelID) throws ArtikelNichtGefundenException, ArtikelMitNummerNichtGefundenException {
 		
 		return listeArtikel.getArtikel(artikelID);
 	}
 	
+	/**
+	 * Gibt den gesamten Artikelbestand zurueck
+	 * @return Artikelbestand
+	 */
 	public ArrayList<Artikel> gibAlleArtikel() {
 		return listeArtikel.getArtikelBestand();
 	}
 	
-		
+	/**
+	 * Shreibst den Artikelbestand in eine externe Datei	
+	 * @throws IOException
+	 */
 	public void schreibeArtikel() throws IOException {
 		
-		listeArtikel.schreibeDaten(datei+"_Artikel.csv");
+		listeArtikel.schreibeDaten(artikeldatei);
 		
 	}
 	
