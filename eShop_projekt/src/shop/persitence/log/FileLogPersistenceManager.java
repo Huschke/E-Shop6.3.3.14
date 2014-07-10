@@ -116,17 +116,45 @@ public class FileLogPersistenceManager implements LogPersistenceManager{
 			verfuegbar = false;
 		}
 		
-		return Artikel(artikelId, artikelName, artikelPreis, artikelMenge, verfuegbar);
+		return new Artikel(artikelId, artikelName, artikelPreis, artikelMenge, verfuegbar);
 	}
 	
 	public boolean speichereKunde(Kunde k) throws IOException {
-		// TODO Auto-generated method stub
-		return false;
+		schreibeZeile(k.getBenutzername());
+		schreibeZeile(k.getVorname());
+		schreibeZeile(k.getNachname());
+		schreibeZeile(k.getEmail());
+		schreibeZeile(k.getPasswort());
+		schreibeZeile(k.getStrasseNummer());
+		schreibeZeile(new Integer (k.getPlz()).toString());
+		schreibeZeile(k.getWohnort());
+		schreibeZeile(new Float (k.getUmsatz()).toString());
+		return true;
 	}
 	public Kunde ladeKunde() throws IOException {
-		// TODO Auto-generated method stub
-		return null;
+		String benutzername = liesZeile();
+		
+		String vorname = liesZeile();
+		
+		String nachname = liesZeile();
+		
+		String eMail = liesZeile();
+		
+		String passwort = liesZeile();
+		
+		String strasseNummer = liesZeile();
+		
+		String plzString = liesZeile();
+		int plz = Integer.parseInt(plzString);
+		
+		String wohnort = liesZeile();
+		
+		String umsatzString = liesZeile();
+		float umsatz = Float.parseFloat(umsatzString);
+		
+		return new Kunde(benutzername, vorname, nachname, eMail, passwort, strasseNummer, plz, wohnort, umsatz);
 	}
+	
 	public boolean speichereMitarbeiter(Mitarbeiter m) throws IOException {
 		// TODO Auto-generated method stub
 		return false;
