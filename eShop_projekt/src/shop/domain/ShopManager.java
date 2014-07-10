@@ -153,8 +153,7 @@ public class ShopManager {
 			System.out.println("Error beim Sortieren");
 		}
 	}
-	
-	public 
+	 
 	
 	public void starteMitarbeiterbereich() {
 		
