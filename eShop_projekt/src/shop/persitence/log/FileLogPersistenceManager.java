@@ -86,12 +86,39 @@ public class FileLogPersistenceManager implements LogPersistenceManager{
 		schreibeZeile(a.getArtName());
 		schreibeZeile(new Integer(a.getArtikelMenge()).toString());
 		
-		return false;
+		if(a.isVerfugbar()) {
+			schreibeZeile("+");
+		} else {
+			schreibeZeile("-");
+		}
+		return true;
 	}
+	
+	
 	public Artikel ladeArtikel() throws IOException {
-		// TODO Auto-generated method stub
-		return null;
+		String artikelId = liesZeile();
+		
+		String artikelName = liesZeile();
+		
+		String artikelPreisString = liesZeile();
+		float artikelPreis = Float.parseFloat(artikelPreisString);
+		
+		String artikelMengeString = liesZeile();
+		int artikelMenge = Integer.parseInt(artikelMengeString);
+		
+		String verfuegbarTaster = liesZeile();
+		
+		boolean verfuegbar;
+		
+		if(verfuegbarTaster.equals("+")) {
+			verfuegbar = true;
+		} else if(verfuegbarTaster.equals("-")) {
+			verfuegbar = false;
+		}
+		
+		return Artikel(artikelId, artikelName, artikelPreis, artikelMenge, verfuegbar);
 	}
+	
 	public boolean speichereKunde(Kunde k) throws IOException {
 		// TODO Auto-generated method stub
 		return false;
