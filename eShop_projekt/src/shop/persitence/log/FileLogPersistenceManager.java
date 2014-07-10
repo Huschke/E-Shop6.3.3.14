@@ -36,6 +36,8 @@ public class FileLogPersistenceManager implements LogPersistenceManager{
 		out = new PrintWriter(new BufferedWriter(new FileWriter(datei)));
 		
 	}
+	
+	
 	public boolean close() {
 			
 		if (out != null)
@@ -49,17 +51,41 @@ public class FileLogPersistenceManager implements LogPersistenceManager{
 				return false;
 			}
 		}
-			return true;
-		
+			return true;		
 	}
+	
+	/*
+	 * Hilfsmethoden zum lesen bzw. schreiben einer Zeile
+	 */
+	private String liesZeile() throws IOException {
+		if (in != null)
+			return in.readLine();
+		else
+			return "";
+	}
+
+	public void schreibeZeile(String daten) {
+		if (out	 != null)
+			out.println(daten);
+	}
+
 	
 	
 	public boolean speichereEreignis(ShopEreignis e) throws IOException {
-		// TODO Auto-generated method stub
-		return false;
+		schreibeZeile(e.getDate());
+		schreibeZeile(e.getZustand());
+		schreibeZeile(e.getPersonName());
+		schreibeZeile(e.getArtikelName());
+		schreibeZeile(new Integer(e.getMenge()).toString());
+		
+        return true;
 	}
+	
 	public boolean speichereArtikel(Artikel a) throws IOException {
-		// TODO Auto-generated method stub
+		schreibeZeile(a.getArtikelID());
+		schreibeZeile(a.getArtName());
+		schreibeZeile(new Integer(a.getArtikelMenge()).toString());
+		
 		return false;
 	}
 	public Artikel ladeArtikel() throws IOException {
@@ -91,20 +117,4 @@ public class FileLogPersistenceManager implements LogPersistenceManager{
 	}
 	
 	
-
-	/*
-	 * Hilfsmethoden zum lesen bzw. schreiben einer Zeile
-	 */
-	private String liesZeile() throws IOException {
-		if (in != null)
-			return in.readLine();
-		else
-			return "";
-	}
-
-	public void schreibeZeile(String daten) {
-		if (out	 != null)
-			out.println(daten);
-	}
-
 }
