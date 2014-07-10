@@ -147,8 +147,8 @@ public class ArtikelListe {
 	 * @param name Name des Artikel
 	 * @return ergebnis Liste von Ergebnissen
 	 */
-	public Vector<Artikel> sucheArtikel(final String name) {
-		final Vector<Artikel> ergebnis = new Vector<Artikel>();
+	public ArrayList<Artikel> sucheArtikel(final String name) {
+		final ArrayList<Artikel> ergebnis = new ArrayList<Artikel>();
 		for (final Artikel artikel : artikelListe) {
 			if (artikel.getArtName().equals(name)) {				
 			    ergebnis.add(artikel);
@@ -199,6 +199,9 @@ public class ArtikelListe {
 	
 	
 	/**
+	 * TODO
+	 * TODO
+	 * TODO
 	 * TODO
 	 * @return
 	 */

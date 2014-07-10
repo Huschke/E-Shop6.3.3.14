@@ -27,9 +27,9 @@ public class ShopManager {
 	private String date = df.format(new Date());	
 	
 	
-	private String kundendatei = "SHOP_Kunden.ser";
-	private String mitarbeiterdatei = "SHOP_Mitarbeiter.ser";
-	private String artikeldatei = "SHOP_Artikel.ser";
+	private String kundendatei = "SHOP_Kunden.txt";
+	private String mitarbeiterdatei = "SHOP_Mitarbeiter.txt";
+	private String artikeldatei = "SHOP_Artikel.txt";
 	
 	private ArtikelListe listeArtikel;
 	private KundenManager kundenMgmt;
@@ -108,6 +108,15 @@ public class ShopManager {
 	 */
 	public ArrayList<Artikel> gibAlleArtikel() {
 		return listeArtikel.getArtikelBestand();
+	}
+	
+	/**
+	 * Gibt eine Liste der Artikel zurueck mit namen
+	 * @param artikelID
+	 * @return Liste der gesuchten Artikel
+	 */
+	public ArrayList<Artikel> sucheArtikel(String artikelID) {
+		return listeArtikel.sucheArtikel(artikelID);
 	}
 	
 	/**
