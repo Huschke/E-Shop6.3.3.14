@@ -108,7 +108,7 @@ public class FileLogPersistenceManager implements LogPersistenceManager{
 		
 		String verfuegbarTaster = liesZeile();
 		
-		boolean verfuegbar;
+		boolean verfuegbar = false;
 		
 		if(verfuegbarTaster.equals("+")) {
 			verfuegbar = true;
@@ -156,13 +156,23 @@ public class FileLogPersistenceManager implements LogPersistenceManager{
 	}
 	
 	public boolean speichereMitarbeiter(Mitarbeiter m) throws IOException {
-		// TODO Auto-generated method stub
-		return false;
+		schreibeZeile(m.getBenutzername());
+		schreibeZeile(m.getVorname());
+		schreibeZeile(m.getNachname());
+		schreibeZeile(m.getPasswort());
+		
+		return true;
 	}
 	
 	public Mitarbeiter ladeMitarbeiter() throws IOException {
-		// TODO Auto-generated method stub
-		return null;
+		String benutzername = liesZeile();
+		
+		String vorname = liesZeile();
+		
+		String nachname = liesZeile();
+		
+		String passwort = liesZeile();
+		return new Mitarbeiter(benutzername, vorname, nachname, passwort);
 	}
 
 	@Override

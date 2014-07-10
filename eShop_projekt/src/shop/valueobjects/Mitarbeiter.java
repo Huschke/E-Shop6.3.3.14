@@ -5,11 +5,12 @@ public class Mitarbeiter extends Person {
 	
 	protected int mitarbeiterNummer;
 	
-	public Mitarbeiter (int maNummer, String benutzername, String vorname, String nachname) {
-		this.mitarbeiterNummer = maNummer;
+	public Mitarbeiter (String benutzername, String vorname, String nachname, String passwort) {
+		
 		this.benutzername = benutzername;
 		this.vorname = vorname;
-		this.nachname = nachname;		
+		this.nachname = nachname;
+		this.passwort = passwort;
 	}
 	
 	
