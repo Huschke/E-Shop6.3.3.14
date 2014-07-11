@@ -17,6 +17,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
@@ -24,8 +25,13 @@ import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import javax.swing.table.TableModel;
 
+
+
+
 import shop.domain.ShopManager;
 import shop.exceptions.ArtikelExistiertBereitsException;
+import shop.exceptions.PasswortFalschException;
+import shop.ui.gui.SwingGuiRegister.RegisterActionListener;
 import shop.valueobjects.Artikel;
 
 public class SwingGuiLogin extends JFrame{
@@ -34,12 +40,14 @@ public class SwingGuiLogin extends JFrame{
 
    
     private JTextField nicknameField;
-    private JTextField passwordField;
+    private JPasswordField passwordField;
     private JButton loginButton;
-    private JLabel registrierLabel;
+    private JButton registrierButton;
     //private JList<Buch> bookList;
 
-    private JTextArea infoText;
+    public static SwingGuiLogin sgl;
+    
+
 
     /**
      * This is the default constructor
@@ -109,14 +117,16 @@ public class SwingGuiLogin extends JFrame{
         loginPanel.add(new JLabel("Nickname:"));
         nicknameField = new JTextField();
         loginPanel.add(nicknameField);
+        nicknameField.setToolTipText("<html>Hier muss dein Nickname rein!</html>");
         loginPanel.add(new JLabel("						")); // leeres Element für Feld im Grid
         loginPanel.add(new JLabel("						"));
      
         loginPanel.add(new JLabel("						"));
         loginPanel.add(new JLabel("						"));
         loginPanel.add(new JLabel("Password:"));
-        passwordField = new JTextField();
+        passwordField = new JPasswordField(5);
         loginPanel.add(passwordField);
+        passwordField.setToolTipText("<html>Dein geheimes Passwort!</html>");
         loginPanel.add(new JLabel("						"));
         loginPanel.add(new JLabel("						"));
         loginPanel.add(new JLabel("						"));
@@ -139,14 +149,16 @@ public class SwingGuiLogin extends JFrame{
         loginPanel.add(new JLabel("						"));
         loginButton = new JButton("LogIn");
         loginPanel.add(loginButton);
+        loginButton.setToolTipText("<html>Logge die einfach ein!</html>");
         loginPanel.add(new JLabel("						"));
         
         loginPanel.add(new JLabel("						"));
         loginPanel.add(new JLabel("						"));
         loginPanel.add(new JLabel("						"));
         loginPanel.add(new JLabel("						"));
-        registrierLabel = new JLabel("<html><u>Registrieren</u></html>");
-        loginPanel.add(registrierLabel);
+        registrierButton = new JButton("<html><u>Registrieren</u></html>");
+        loginPanel.add(registrierButton);
+        registrierButton.setToolTipText("<html>Du hast noch, keinen Account,<br>regisrtiere dich zu erst!</html>");
         loginPanel.add(new JLabel("						"));
         
         loginPanel.add(new JLabel("						"));
@@ -184,31 +196,10 @@ public class SwingGuiLogin extends JFrame{
         cPane.add(loginPanel);
         
 
-        
+        registrierButton.addActionListener(new LoginActionListener());
      
-    
-
-        // Listener registrieren
-        // 1.) Für den login-Button
-        // (Listener als anonyme Klasse)
-        loginButton.addActionListener(new ActionListener() {
-            public void actionPerformed(final ActionEvent ae) {
-                final String titel = nicknameField.getText();
-                try {
-                    final String nummer = passwordField.getText();
-                    inform("Füge Buch mit Nummer " + nummer + " und Titel " + titel
-                            + " ein.");
-                    try {
-                        //sho.schreibeArtikel();
-                    	System.out.println("Nickname" + nicknameField);
-                    } catch (final ArtikelExistiertBereitsException e) {
-                        inform("Buch existierte bereits!");
-                    }
-                } catch (final NumberFormatException e) {
-                    inform("Buchnummer muss eine Zahl sein!");
-                }
-            }
-        });
+     
+        loginButton.addActionListener(new LoginActionListener());
 
     
 
@@ -243,15 +234,23 @@ public class SwingGuiLogin extends JFrame{
         }
     }
 
-    private void inform(final String message) {
-        infoText.setText(message);
-    }
 
-    class SearchActionListener implements ActionListener {
+
+    class LoginActionListener implements ActionListener {
         public void actionPerformed(final ActionEvent ae) {
-            if (ae.getSource().equals(loginButton)) {
+            if (ae.getSource().equals(registrierButton)) {
+            
+            	setVisible(false);
+				dispose();
+				
+				try {
+					SwingGuiRegister sgr = new SwingGuiRegister("The Sheb Wop", sho,  sgl);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
                 //java.util.List<Buch> buecher = null;
-                final String suchbegriff = nicknameField.getText();
+                //final String suchbegriff = nicknameField.getText();
                 /*if (suchbegriff.isEmpty()) {
                     buecher = bib.gibAlleBuecher();
                     inform("Liste alle Bücher!");
@@ -267,7 +266,16 @@ public class SwingGuiLogin extends JFrame{
                     lModel.addElement(aktBuch);
                 }*/
             }
-        }
+            if (ae.getSource().equals(loginButton)) {
+            
+	            final String name = nicknameField.getText();
+	            
+	            final String passwort= passwordField.getText();
+				System.out.println("Eingelogt mit Passwort: " + passwort + " und Name: " + name);
+				//sho.fuegeBuchEin(titel, nummer);
+				
+            }
+         }
     }
 
     // Lokale Klasse für File-Menü
@@ -300,7 +308,7 @@ public class SwingGuiLogin extends JFrame{
             } else if (command.equals("Save")) {
                 try {
                     sho.schreibeArtikel();
-                    inform("Bücher gespeichert");
+                    //inform("Bücher gespeichert");
                 } catch (final IOException e) {
                     e.printStackTrace();
                 }

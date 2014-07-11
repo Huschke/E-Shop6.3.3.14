@@ -23,7 +23,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
-import shop.ui.gui.SwingGuiRegister.SearchActionListener;
+import shop.ui.gui.SwingGuiRegister.RegisterActionListener;
 import shop.domain.ShopManager;
 import shop.exceptions.ArtikelExistiertBereitsException;
 import shop.valueobjects.Artikel;
@@ -66,8 +66,6 @@ public class SwingGuiRegister extends JFrame {
 			this.sho =sho;
 	        this.sgl = sgl;
 	    }
-	    
-	    
 
 	    /**
 	     * This method initializes this
@@ -111,8 +109,10 @@ public class SwingGuiRegister extends JFrame {
 	        loginPanel.add(new JLabel("						"));
 	        lastNameField = new JTextField("Nachname");
 	        loginPanel.add(lastNameField);
+	        lastNameField.setToolTipText("<html>Hier kommt dein Nachname hin, Duh!</html>");
 	        firstNameField = new JTextField("Vorname");
 	        loginPanel.add(firstNameField);
+	        firstNameField.setToolTipText("<html>Hier kommt dein Vorname hin!</html>");
 	        loginPanel.add(new JLabel("						"));
 	        loginPanel.add(new JLabel("						"));
 	        
@@ -127,6 +127,7 @@ public class SwingGuiRegister extends JFrame {
 	        loginPanel.add(new JLabel("						"));
 	        mailField = new JTextField("E-Mail");
 	        loginPanel.add(mailField);
+	        mailField.setToolTipText("<html>Deine gültige E-mail Adresse.</html>");
 	        pwField = new JTextField("Passwort");
 	        loginPanel.add(pwField);
 	        pwField.setToolTipText("<html>Benutze ein Passwort, dass du<br> dir gut merken kannst!</html>");
@@ -147,6 +148,7 @@ public class SwingGuiRegister extends JFrame {
 	        nicknameField.setToolTipText("<html>Den Nicknamen brauchst du,<br>um dich einzuloggen!</html>");
 	        countryField = new JTextField("Land");
 	        loginPanel.add(countryField);
+	        countryField.setToolTipText("<html>In welchem Land lebst du?</html>");
 	        loginPanel.add(new JLabel("						"));
 	        loginPanel.add(new JLabel("						"));
 	        
@@ -161,8 +163,10 @@ public class SwingGuiRegister extends JFrame {
 	        loginPanel.add(new JLabel("						"));
 	        streetNumberField = new JTextField("Straße, Nummer");
 	        loginPanel.add(streetNumberField);
+	        streetNumberField.setToolTipText("<html>Die Straße und Hausnummer mit<br>Leerzeichen getrennt.</html>");
 	        plzField = new JTextField("PLZ");
 	        loginPanel.add(plzField);
+	        plzField.setToolTipText("<html>Deine Postleitzahl, bitte!</html>");
 	        loginPanel.add(new JLabel("						"));
 	        loginPanel.add(new JLabel("						"));
 
@@ -185,6 +189,7 @@ public class SwingGuiRegister extends JFrame {
 	        loginPanel.add(new JLabel("						"));
 	        registerButton = new JButton("Anmelden");
 	        loginPanel.add(registerButton);
+	        registerButton.setToolTipText("<html>Klicke, um die mit diesen Daten<br>zu registrieren.</html>");
 	        loginPanel.add(new JLabel("						"));
 	        loginPanel.add(new JLabel("						"));
 	        
@@ -193,6 +198,7 @@ public class SwingGuiRegister extends JFrame {
 	        loginPanel.add(new JLabel("						"));
 	        loginLabel = new JButton("<html><u>Zum Login</u></html>");
 	        loginPanel.add(loginLabel);
+	        loginLabel.setToolTipText("<html>Wenn du dich schon registriert hast,<br>kommst du hier wider zum Loginbereich.</html>");
 	        loginPanel.add(new JLabel("						"));
 	        loginPanel.add(new JLabel("						"));
 	        
@@ -212,7 +218,7 @@ public class SwingGuiRegister extends JFrame {
 	        cPane.add(loginPanel);
 	        
 
-	        loginLabel.addActionListener(new SearchActionListener());
+	        loginLabel.addActionListener(new RegisterActionListener());
 	        
 	    
 	        
@@ -272,16 +278,18 @@ public class SwingGuiRegister extends JFrame {
 	 
 	    
 
-	    class SearchActionListener implements ActionListener {
+	    class RegisterActionListener implements ActionListener {
 	        public void actionPerformed(final ActionEvent ae) {
 	        	
 	        	if(ae.getSource().equals(loginLabel)){
                 	try {
                 		
+						
 						setVisible(false);
-		                dispose();
-                		
-						new SwingGuiLogin("The Sheb Wop", shoFile);
+						dispose();
+						
+						SwingGuiLogin sgl = new SwingGuiLogin("The Sheb Wop", shoFile);
+						
 						
 						
 					} catch (IOException e) {
