@@ -36,6 +36,8 @@ public class FileLogPersistenceManager implements LogPersistenceManager{
 		out = new PrintWriter(new BufferedWriter(new FileWriter(datei)));
 		
 	}
+	
+	
 	public boolean close() {
 			
 		if (out != null)
@@ -49,49 +51,9 @@ public class FileLogPersistenceManager implements LogPersistenceManager{
 				return false;
 			}
 		}
-			return true;
-		
+			return true;		
 	}
 	
-	
-	public boolean speichereEreignis(ShopEreignis e) throws IOException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	public boolean speichereArtikel(Artikel a) throws IOException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	public Artikel ladeArtikel() throws IOException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	public boolean speichereKunde(Kunde k) throws IOException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	public Kunde ladeKunde() throws IOException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	public boolean speichereMitarbeiter(Mitarbeiter m) throws IOException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	
-	public Mitarbeiter ladeMitarbeiter() throws IOException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Ereignis ladeEreignis(ShopEreignis e) throws IOException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	
-
 	/*
 	 * Hilfsmethoden zum lesen bzw. schreiben einer Zeile
 	 */
@@ -107,4 +69,117 @@ public class FileLogPersistenceManager implements LogPersistenceManager{
 			out.println(daten);
 	}
 
+	
+	
+	public boolean speichereEreignis(ShopEreignis e) throws IOException {
+		schreibeZeile(e.getDate());
+		schreibeZeile(e.getZustand());
+		schreibeZeile(e.getPersonName());
+		schreibeZeile(e.getArtikelName());
+		schreibeZeile(new Integer(e.getMenge()).toString());
+		
+        return true;
+	}
+	
+	public boolean speichereArtikel(Artikel a) throws IOException {
+		schreibeZeile(a.getArtikelID());
+		schreibeZeile(a.getArtName());
+		schreibeZeile(new Integer(a.getArtikelMenge()).toString());
+		
+		if(a.isVerfugbar()) {
+			schreibeZeile("+");
+		} else {
+			schreibeZeile("-");
+		}
+		return true;
+	}
+	
+	
+	public Artikel ladeArtikel() throws IOException {
+		String artikelId = liesZeile();
+		
+		String artikelName = liesZeile();
+		
+		String artikelPreisString = liesZeile();
+		float artikelPreis = Float.parseFloat(artikelPreisString);
+		
+		String artikelMengeString = liesZeile();
+		int artikelMenge = Integer.parseInt(artikelMengeString);
+		
+		String verfuegbarTaster = liesZeile();
+		
+		boolean verfuegbar = false;
+		
+		if(verfuegbarTaster.equals("+")) {
+			verfuegbar = true;
+		} else if(verfuegbarTaster.equals("-")) {
+			verfuegbar = false;
+		}
+		
+		return new Artikel(artikelId, artikelName, artikelPreis, artikelMenge, verfuegbar);
+	}
+	
+	public boolean speichereKunde(Kunde k) throws IOException {
+		schreibeZeile(k.getBenutzername());
+		schreibeZeile(k.getVorname());
+		schreibeZeile(k.getNachname());
+		schreibeZeile(k.getEmail());
+		schreibeZeile(k.getPasswort());
+		schreibeZeile(k.getStrasseNummer());
+		schreibeZeile(new Integer (k.getPlz()).toString());
+		schreibeZeile(k.getWohnort());
+		schreibeZeile(new Float (k.getUmsatz()).toString());
+		return true;
+	}
+	public Kunde ladeKunde() throws IOException {
+		String benutzername = liesZeile();
+		
+		String vorname = liesZeile();
+		
+		String nachname = liesZeile();
+		
+		String eMail = liesZeile();
+		
+		String passwort = liesZeile();
+		
+		String strasseNummer = liesZeile();
+		
+		String plzString = liesZeile();
+		int plz = Integer.parseInt(plzString);
+		
+		String wohnort = liesZeile();
+		
+		String umsatzString = liesZeile();
+		float umsatz = Float.parseFloat(umsatzString);
+		
+		return new Kunde(benutzername, vorname, nachname, eMail, passwort, strasseNummer, plz, wohnort, umsatz);
+	}
+	
+	public boolean speichereMitarbeiter(Mitarbeiter m) throws IOException {
+		schreibeZeile(m.getBenutzername());
+		schreibeZeile(m.getVorname());
+		schreibeZeile(m.getNachname());
+		schreibeZeile(m.getPasswort());
+		
+		return true;
+	}
+	
+	public Mitarbeiter ladeMitarbeiter() throws IOException {
+		String benutzername = liesZeile();
+		
+		String vorname = liesZeile();
+		
+		String nachname = liesZeile();
+		
+		String passwort = liesZeile();
+		return new Mitarbeiter(benutzername, vorname, nachname, passwort);
+	}
+
+	@Override
+	public Ereignis ladeEreignis(ShopEreignis e) throws IOException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
 }
