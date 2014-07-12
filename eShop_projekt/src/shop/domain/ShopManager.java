@@ -14,6 +14,7 @@ import java.util.Vector;
 
 
 
+
 import shop.exceptions.ArtikelExistiertBereitsException;
 import shop.exceptions.ArtikelMitNummerNichtGefundenException;
 import shop.exceptions.ArtikelNichtGefundenException;
@@ -129,19 +130,6 @@ public class ShopManager {
 		
 	}
 	
-	public void schreibeMitarbeiter() throws IOException {
-		
-		mitarbeiterMgmt.schreibeDaten(mitarbeiterdatei);
-				
-	}
-	
-	
-	public void schreibeKunde() throws IOException {
-		  
-		kundenMgmt.schreibeDaten(kundendatei);
-		
-	}
-	
 	public void artikelIDSortieren() throws IOException {
 		
 		boolean ok = listeArtikel.nachIDSortieren();
@@ -153,7 +141,36 @@ public class ShopManager {
 			System.out.println("Error beim Sortieren");
 		}
 	}
-	 
+	
+	
+	//
+	//Mitarbeiter-Methoden
+	//
+	
+	/**
+	 * Speichert die Liste der Mitarbieter in eine externe Datei
+	 * @throws IOException
+	 */
+	public void schreibeMitarbeiter() throws IOException {
+		
+		mitarbeiterMgmt.schreibeDaten(mitarbeiterdatei);
+				
+	}
+	
+	
+	/**
+	 * Methode, die die aktuelle Liste aller Mitarbeiter zurückgibt.
+	 * @return Vector mit allen Mitarbeitern
+	 */
+	public Vector<Mitarbeiter> gibAlleMitarbeiter() {
+		return mitarbeiterMgmt.getMitarbeiterliste();
+	}
+	
+	public void schreibeKunde() throws IOException {
+		  
+		kundenMgmt.schreibeDaten(kundendatei);
+		
+	}
 	
 	public void starteMitarbeiterbereich() {
 		
