@@ -129,18 +129,18 @@ public class ShopManager {
 		
 	}
 	
-	//public void schreibeMitarbeiter() throws IOException {
-	//	
-	//	mitarbeiterVt.schreibeDaten(datei+"Shop_Mitarbeiter_Liste.txt");
-	//			
-	//}
+	public void schreibeMitarbeiter() throws IOException {
+		
+		mitarbeiterMgmt.schreibeDaten(mitarbeiterdatei);
+				
+	}
 	
 	
-	//public void schreibeKunde() throws IOException {
-	//	  
-	//	kundenVt.schreibeDaten(datei+"Shop_Kunden_Liste.txt");
-	//	
-	//}
+	public void schreibeKunde() throws IOException {
+		  
+		kundenMgmt.schreibeDaten(kundendatei);
+		
+	}
 	
 	public void artikelIDSortieren() throws IOException {
 		
