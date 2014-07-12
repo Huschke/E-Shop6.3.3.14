@@ -179,19 +179,25 @@ public class ShopManager {
 	public void mitarbeiterLoeschen (Mitarbeiter m) throws MitarbeiterNichtGefundenException {
 		mitarbeiterMgmt.loescheMitarbeiter(m);
 	}
+	
+	
 	/**
-	 * Erstellt eine neue Mitarbieter Instanz und übergiebt sie dem Mitarbeiter-Manager
+	 * Erstellt eine neue Mitarbieter Instanz und uebergiebt sie dem Mitarbeiter-Manager
 	 * @param benutzername
 	 * @param vorname
 	 * @param nachname
 	 * @param passwort
 	 * @throws MitarbeiterExistiertBereitsException
 	 */
-	public void füegeMitarbeiterHinzu(String benutzername, String vorname, String nachname, String passwort) throws MitarbeiterExistiertBereitsException {
+	public void fuegeMitarbeiterHinzu(String benutzername, String vorname, String nachname, String passwort) throws MitarbeiterExistiertBereitsException {
 		Mitarbeiter m = new Mitarbeiter(benutzername, vorname, nachname, passwort);
 		mitarbeiterMgmt.einfuegenMitarbeiter(m);
 
 	}
+	
+	//
+	//Kunden-Methoden
+	//
 	
 	public void schreibeKunde() throws IOException {
 		  
