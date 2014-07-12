@@ -15,9 +15,13 @@ import java.util.Vector;
 
 
 
+
+
 import shop.exceptions.ArtikelExistiertBereitsException;
 import shop.exceptions.ArtikelMitNummerNichtGefundenException;
 import shop.exceptions.ArtikelNichtGefundenException;
+import shop.exceptions.MitarbeiterExistiertBereitsException;
+import shop.exceptions.MitarbeiterNichtGefundenException;
 import shop.valueobjects.Artikel;
 import shop.valueobjects.Mitarbeiter;
 
@@ -159,11 +163,34 @@ public class ShopManager {
 	
 	
 	/**
-	 * Methode, die die aktuelle Liste aller Mitarbeiter zurückgibt.
+	 * Methode, die die aktuelle Liste aller Mitarbeiter zurueckgibt.
 	 * @return Vector mit allen Mitarbeitern
 	 */
 	public Vector<Mitarbeiter> gibAlleMitarbeiter() {
 		return mitarbeiterMgmt.getMitarbeiterliste();
+	}
+	
+	
+	/**
+	 * Loescht einen Mitarbeiter aus der Liste
+	 * @param m
+	 * @throws MitarbeiterNichtGefundenException
+	 */
+	public void mitarbeiterLoeschen (Mitarbeiter m) throws MitarbeiterNichtGefundenException {
+		mitarbeiterMgmt.loescheMitarbeiter(m);
+	}
+	/**
+	 * Erstellt eine neue Mitarbieter Instanz und übergiebt sie dem Mitarbeiter-Manager
+	 * @param benutzername
+	 * @param vorname
+	 * @param nachname
+	 * @param passwort
+	 * @throws MitarbeiterExistiertBereitsException
+	 */
+	public void füegeMitarbeiterHinzu(String benutzername, String vorname, String nachname, String passwort) throws MitarbeiterExistiertBereitsException {
+		Mitarbeiter m = new Mitarbeiter(benutzername, vorname, nachname, passwort);
+		mitarbeiterMgmt.einfuegenMitarbeiter(m);
+
 	}
 	
 	public void schreibeKunde() throws IOException {
