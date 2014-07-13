@@ -4,7 +4,11 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Vector;
+
+
+
 
 
 
@@ -20,9 +24,11 @@ import java.util.Vector;
 import shop.exceptions.ArtikelExistiertBereitsException;
 import shop.exceptions.ArtikelMitNummerNichtGefundenException;
 import shop.exceptions.ArtikelNichtGefundenException;
+import shop.exceptions.KundeNichtGefundenException;
 import shop.exceptions.MitarbeiterExistiertBereitsException;
 import shop.exceptions.MitarbeiterNichtGefundenException;
 import shop.valueobjects.Artikel;
+import shop.valueobjects.Kunde;
 import shop.valueobjects.Mitarbeiter;
 
 public class ShopManager {
@@ -199,11 +205,25 @@ public class ShopManager {
 	//Kunden-Methoden
 	//
 	
+	
+	public Vector<Kunde> sucheKunde (String benutzername) {
+		return kundenMgmt.sucheKunde(benutzername);
+	}
+	
 	public void schreibeKunde() throws IOException {
 		  
-		kundenMgmt.schreibeDaten(kundendatei);
-		
+		kundenMgmt.schreibeDaten(kundendatei);	
 	}
+	
+	public List<Kunde> gibAlleKunden() {
+		return kundenMgmt.getKundenliste();
+	}
+	
+	public void loescheKunde(Kunde k) throws KundeNichtGefundenException {
+		kundenMgmt.loescheKunde(k);
+	}
+	
+	
 	
 	public void starteMitarbeiterbereich() {
 		
