@@ -4,8 +4,11 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
+
+
 
 
 
@@ -30,6 +33,7 @@ import shop.exceptions.MitarbeiterNichtGefundenException;
 import shop.valueobjects.Artikel;
 import shop.valueobjects.Kunde;
 import shop.valueobjects.Mitarbeiter;
+import shop.valueobjects.Person;
 
 public class ShopManager {
 
@@ -223,6 +227,27 @@ public class ShopManager {
 		kundenMgmt.loescheKunde(k);
 	}
 	
+	public Person ueberpruefeLogin(String benutzername, String passwort) {
+		Person p = null;
+		
+		Iterator<Kunde> iterKunde = kundenMgmt.getKundenliste().iterator();
+		while(iterKunde.hasNext()){
+			p = iterKunde.next();
+			if (p.getBenutzername().equals(benutzername) && p.getPasswort().equals(passwort)) {
+				return p;
+			}
+		}
+		Iterator<Mitarbeiter> iterMit = mitarbeiterMgmt.getMitarbeiterliste().iterator();
+		while(iterMit.hasNext()) {
+			p = iterMit.next();
+			if (p.getBenutzername().equals(benutzername) && p.getPasswort().equals(passwort)) {
+				return p;
+			}
+		}
+		
+		
+		return null;		
+	}
 	
 	
 	public void starteMitarbeiterbereich() {
