@@ -20,10 +20,6 @@ public class FileLogPersistenceManager implements LogPersistenceManager{
 	
 	private BufferedReader in = null;
 	private PrintWriter out = null;
-
-		
-	
-	
 	
 	public void openForReading(String datei) throws IOException {
 		
