@@ -23,7 +23,7 @@ public class MitarbeiterManager {
 	
 	Vector<Mitarbeiter> mitarbeiterListe = new Vector<Mitarbeiter>(); 
 	
-	private PersistenceManager pm = new FilePersistenceManager();
+	private LogPersistenceManager pm = new FileLogPersistenceManager();
 	
 	private static Person mitarbeiterBesitzer = new Person();
 	

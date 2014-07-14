@@ -37,7 +37,7 @@ public class ArtikelListe {
 	//Verwaltung des Artikelbestandes in einer ArrayList
 	private ArrayList<Artikel> artikelListe  = new ArrayList<Artikel>();
 	//Persistenz-SChnittstelle, die fuer die Details der Datenhaltung zuständig ist
-	private PersistenceManager pm = new FilePersistenceManager();
+	private LogPersistenceManager pm = new FileLogPersistenceManager();
 	
 	
 	//Dateneinlesen

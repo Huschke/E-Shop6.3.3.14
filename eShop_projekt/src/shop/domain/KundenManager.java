@@ -30,7 +30,7 @@ public class KundenManager {
 	
 	private BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 	
-	private PersistenceManager pm = new FilePersistenceManager();
+	private LogPersistenceManager pm = new FileLogPersistenceManager();
 	
 	private List<Kunde> kundenListe = new ArrayList<Kunde>();
 
