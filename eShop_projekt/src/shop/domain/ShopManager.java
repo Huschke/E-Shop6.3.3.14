@@ -71,7 +71,8 @@ public class ShopManager {
 	 * @param verfuegbar
 	 * @throws ArtikelExistiertBereitsException
 	 */
-	public void fuegeEinenArtikelEin(Mitarbeiter mitarbeiter, String artikelId, String artikelName, float preis, int bestand, boolean verfuegbar) throws ArtikelExistiertBereitsException {
+	public void fuegeEinenArtikelEin(Mitarbeiter mitarbeiter, String artikelId, String artikelName,
+			float preis, int bestand, boolean verfuegbar) throws ArtikelExistiertBereitsException {
 		Artikel artikel = new Artikel(artikelId, artikelName, preis, bestand, verfuegbar);
 		listeArtikel.einfuegenArtikel(artikel);
 		
