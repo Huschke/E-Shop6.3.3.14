@@ -7,9 +7,11 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Vector;
 
 import shop.domain.ArtikelListe;
 import shop.domain.KundenManager;
+import shop.domain.MitarbeiterManager;
 import shop.domain.ShopManager;
 import shop.valueobjects.Artikel;
 import shop.valueobjects.Kunde;
@@ -19,6 +21,11 @@ import shop.valueobjects.Warenkorb;
 public class ClientCUI {
 	
 	private ShopManager shopMgmt;
+	private KundenManager kundenMgmt;
+	private MitarbeiterManager mitarbeiterMgmt;
+	
+	Vector<Mitarbeiter> mitarbeiterListe = new Vector<Mitarbeiter>();
+	List<Kunde> kundenListe = new Vector<Kunde>();
 	
 	private BufferedReader in;
 	
@@ -29,12 +36,18 @@ public class ClientCUI {
 		in = new BufferedReader(new InputStreamReader(System.in));
 		
 		shopMgmt = new ShopManager();
+		
+		mitarbeiterListe = mitarbeiterMgmt.getMitarbeiterliste();
+			
+		kundenListe = kundenMgmt.getKundenliste();
 	}
 	
 	public String liesEingabe() throws IOException {
 		return in.readLine();
 	}	
 
+	
+	
 	public void initialisiereShop() throws Exception {
 
 		String input = ""; 
@@ -55,6 +68,33 @@ public class ClientCUI {
 			
 	}
 		
+	public void gibMenueAus() {
+		System.out.print("<----Das Hauptmenü--->");
+		System.out.print("\n Zu den Artikeln - 'a'");
+		System.out.print("\n Warenkorb anzeigen - 'w'");
+		System.out.print("\n Benutzerkonto anzeizen - 'k'");
+		System.out.print("\n Programm beenden - 'q'");
+		System.out.print("\n Kundenkartei anzeigen - 'd'");
+		System.out.print("\n \n >");
+		System.out.flush();
+		
+	}
+
+	public String bereichWaehlen() throws IOException{
+		
+		String wahl;
+		do{
+			System.out.println("Anmelden als Mitarbeiter(1)");
+			System.out.println("Anmelden als Kunden(2)");
+			System.out.print("> ");
+			
+			wahl = liesEingabe();
+			
+		}while(!((wahl.equals("1") || wahl.equals("2"))));
+		return wahl;
+		
+	}
+
 	public void starteMitarbeiterbereich() {
 		
 		boolean logInOk = false;
@@ -115,7 +155,6 @@ public class ClientCUI {
 		while(iter.hasNext()){
 			Kunde k = (Kunde) iter.next();
 			if(k.getBenutzername().equals(benutzername)&& k.getPasswort().equals(passwort)){
-				setzeKunde(k);
 				return true;
 			}
 		}
@@ -145,23 +184,6 @@ public class ClientCUI {
 		return false;
 		
 	}
-	
-	
-	public String bereichWaehlen() throws IOException{
-		
-		String wahl;
-		do{
-			System.out.println("Anmelden als Mitarbeiter(1)");
-			System.out.println("Anmelden als Kunden(2)");
-			System.out.print("> ");
-			
-			wahl = liesEingabe();
-			
-		}while(!((wahl.equals("1") || wahl.equals("2"))));
-		return wahl;
-		
-	}
-	
 	
 	
 	public void kundenWahl() throws Exception{
@@ -210,18 +232,6 @@ public class ClientCUI {
 
 
 	
-	public void gibMenueAus() {
-		System.out.print("<----Das Hauptmenü--->");
-		System.out.print("\n Zu den Artikeln - 'a'");
-		System.out.print("\n Warenkorb anzeigen - 'w'");
-		System.out.print("\n Benutzerkonto anzeizen - 'k'");
-		System.out.print("\n Programm beenden - 'q'");
-		System.out.print("\n Kundenkartei anzeigen - 'd'");
-		System.out.print("\n \n >");
-		System.out.flush();
-		
-	}
-
 	public void benutzerEingabe(String eingabe) throws IOException {
 		
 		if (eingabe.equals("a")) {
@@ -285,7 +295,7 @@ public class ClientCUI {
 		//String input = null;
 		
 		
-		ClientCUI meinShop = new ClientCUI("Shop");
+		ClientCUI meinShop = new ClientCUI();
 					
 			try {
 

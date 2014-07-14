@@ -103,7 +103,7 @@ public class KundenManager {
 	 * @param einKunde
 	 * @throws KundeNichtGefundenException
 	 */
-	public void loescheKunde(Kunde einKunde) throws KundeNichtGefundenException{ //TODO: KUNDEEXCISTIERTNICHT
+	public void loescheKunde(Kunde einKunde) throws KundeNichtGefundenException{ 
 		
 		if (kundenListe.contains(einKunde)) {
 			kundenListe.remove(einKunde);
