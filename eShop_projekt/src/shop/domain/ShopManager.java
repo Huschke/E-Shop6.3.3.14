@@ -52,7 +52,7 @@ public class ShopManager {
 	
 	
 	
-	public ShopManager(String datei) throws IOException {
+	public ShopManager() throws IOException {
 		 
 		
 		
@@ -244,12 +244,10 @@ public class ShopManager {
 				return p;
 			}
 		}
-		
-		
 		return null;		
 	}
 	
-	
+	/*	
 	public void starteMitarbeiterbereich() {
 		
 		boolean logInOk = false;
@@ -294,5 +292,5 @@ public class ShopManager {
 		
 	}
 	
-	
+*/	
 }

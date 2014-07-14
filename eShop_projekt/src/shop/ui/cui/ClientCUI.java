@@ -1,7 +1,6 @@
 package shop.ui.cui;
 
 
-// Artikel/ Kunden nach z.b Namen sortieren
 import java.io.BufferedReader; 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -23,11 +22,11 @@ public class ClientCUI {
 	
 	
 	
-	public ClientCUI(String datei) throws Exception{//Shopkonstruktor
+	public ClientCUI() throws Exception{
 		
 		in = new BufferedReader(new InputStreamReader(System.in));
 		
-		shopMgmt = new ShopManager(datei);
+		shopMgmt = new ShopManager();
 	}
 	
 	public String einlesenEingabe() throws IOException {
