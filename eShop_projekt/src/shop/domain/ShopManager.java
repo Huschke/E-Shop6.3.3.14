@@ -24,9 +24,11 @@ import java.util.Vector;
 
 
 
+
 import shop.exceptions.ArtikelExistiertBereitsException;
 import shop.exceptions.ArtikelMitNummerNichtGefundenException;
 import shop.exceptions.ArtikelNichtGefundenException;
+import shop.exceptions.KundeExistiertBereitsException;
 import shop.exceptions.KundeNichtGefundenException;
 import shop.exceptions.MitarbeiterExistiertBereitsException;
 import shop.exceptions.MitarbeiterNichtGefundenException;
@@ -227,6 +229,12 @@ public class ShopManager {
 		kundenMgmt.loescheKunde(k);
 	}
 	
+	public void fuegeKundeHinzu(String benutzername, String vorname, String nachname, String mail, String passwort, String strasseNummer, int plz, String wohnort, float umsatz) throws KundeExistiertBereitsException {
+		Kunde k = new Kunde(benutzername, vorname, nachname, mail, passwort, strasseNummer, plz, wohnort, umsatz);
+		kundenMgmt.einfuegenKunde(k);
+
+	}
+	
 	public Person ueberpruefeLogin(String benutzername, String passwort) {
 		Person p = null;
 		
@@ -247,50 +255,5 @@ public class ShopManager {
 		return null;		
 	}
 	
-	/*	
-	public void starteMitarbeiterbereich() {
 		
-		boolean logInOk = false;
-		
-		try{
-			do{
-				logInOk = mitarbeiterMgmt.kundenLogin();
-					if(logInOk){
-						KundenClientCUI k = new KundenClientCUI(""); //TODO: clienCUI!!!!				
-						k.kClRun();
-					}	
-					else{
-						System.out.println("Benutzername oder Passwort ist falsch!");
-					}
-			
-			
-			}while(!logInOk);
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		
-	}
-	
-	public void starteKundenbereich () {
-		
-		boolean logInOk = false;
-		
-		try{
-			do{
-				logInOk = kundenVt.kundenLogin();
-				if(logInOk){
-					KundenClientCUI k = new KundenClientCUI("Bier");				
-					k.kClRun();
-				} else {	
-					System.out.println("Benutzername oder Passwort ist falsch!");
-				}
-			
-			}while(!logInOk);
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		
-	}
-	
-*/	
 }
