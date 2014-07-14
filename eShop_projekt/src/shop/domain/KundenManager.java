@@ -103,7 +103,7 @@ public class KundenManager {
 	 * @param einKunde
 	 * @throws KundeNichtGefundenException
 	 */
-	public void loescheKunde(Kunde einKunde) throws KundeNichtGefundenException{ //TODO: KUNDEEXCISTIERTNICHT
+	public void loescheKunde(Kunde einKunde) throws KundeNichtGefundenException{ 
 		
 		if (kundenListe.contains(einKunde)) {
 			kundenListe.remove(einKunde);
@@ -160,27 +160,5 @@ public class KundenManager {
 	}
 
 
-	public boolean kundenLogin() throws IOException{
-		
-		String benutzername = "";
-		String passwort = "";
-		
-		System.out.println("//----  Kunden-Login  ----//");
-		System.out.print("Benutzername> ");
-		benutzername = liesEingabe();
-		
-		System.out.print("Passwort> ");
-		passwort = liesEingabe();
-		
-		Iterator<Kunde> iter = kundenListe.iterator();
-		while(iter.hasNext()){
-			Kunde k = (Kunde) iter.next();
-			if(k.getBenutzername().equals(benutzername)&& k.getPasswort().equals(passwort)){
-				setzeKunde(k);
-				return true;
-			}
-		}
-		return false;
-		
-	}
+	
 }
