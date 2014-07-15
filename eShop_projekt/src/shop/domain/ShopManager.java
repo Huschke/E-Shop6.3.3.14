@@ -35,7 +35,7 @@ import shop.exceptions.KundeNichtGefundenException;
 import shop.exceptions.MitarbeiterExistiertBereitsException;
 import shop.exceptions.MitarbeiterNichtGefundenException;
 import shop.ui.cui.ClientCUI;
-import shop.ui.cui.KundenClientCUI;
+import shop.ui.cui.KundenCUI;
 import shop.valueobjects.Artikel;
 import shop.valueobjects.Kunde;
 import shop.valueobjects.Mitarbeiter;
