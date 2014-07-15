@@ -28,6 +28,7 @@ import javax.swing.WindowConstants;
 import shop.ui.gui.ArtikelTableModel;
 import shop.valueobjects.Artikel;
 import shop.ui.gui.SwingGuiLogin.LoginActionListener;
+import shop.ui.gui.SwingGuiRegister.RegisterActionListener;
 import shop.domain.ShopManager;
 import shop.exceptions.ArtikelExistiertBereitsException;
 
@@ -44,6 +45,7 @@ public class SwingGuiBuy extends JFrame {
     private JButton losButton;
     private JTable artikelTable;
     private JButton alleArtikelButton;
+    private JButton logOutButton;
 
     //private JList<Buch> bookList;
 
@@ -80,7 +82,9 @@ public class SwingGuiBuy extends JFrame {
         searchPanel.setLayout(new GridLayout(5, 2));
         // Leerzeile im Layout...
         searchPanel.add(new JLabel(""));
-        searchPanel.add(new JLabel(""));
+        logOutButton = new JButton("Abmelden");
+        searchPanel.add(logOutButton);
+        
         // ... und hier das eigentliche Suchformular:
         searchPanel.add(new JLabel("Artikelsuche"));
         searchPanel.add(new JLabel(""));
@@ -141,7 +145,7 @@ public class SwingGuiBuy extends JFrame {
         
         
         alleArtikelButton.addActionListener(new SearchActionListener());
-        
+        logOutButton.addActionListener(new SearchActionListener());
         losButton.addActionListener(new SearchActionListener());
 
         // Menüs
@@ -192,6 +196,18 @@ public class SwingGuiBuy extends JFrame {
         		final ArtikelTableModel tModel = (ArtikelTableModel) artikelTable.getModel();
                 tModel.setDataVector(art);
         	}
+        	if(ae.getSource().equals(logOutButton)){
+        		try {
+   
+					setVisible(false);
+					dispose();
+					SwingGuiLogin sgl = new SwingGuiLogin("The Sheb Wop", "shoFile");
+
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+        	}
         }
     }
 
@@ -216,19 +232,12 @@ public class SwingGuiBuy extends JFrame {
             final String command = ae.getActionCommand();
             System.out.println(command);
 
-           /*if (command.equals("Quit")) {
-                inform("Programm wird beendet!");
+           if (command.equals("Quit")) {
                 setVisible(false);
                 dispose();
                 System.exit(0);
-            } else if (command.equals("Save")) {
-                try {
-                    sho.schreibeBuecher();
-                    inform("Bücher gespeichert");
-                } catch (final IOException e) {
-                    e.printStackTrace();
-                }
-            }*/
+ 
+            }
         }
     }
 
@@ -240,7 +249,7 @@ public class SwingGuiBuy extends JFrame {
 
             // Nur zu Testzwecken: Menü mit Untermenü
             final JMenu m = new JMenu("About");
-            m.add(new JMenuItem("Programmers"));
+            m.add(new JMenuItem("Programmers: Adam Czogallik, Johannes Masur"));
             m.add(new JMenuItem("Stuff"));
             this.add(m);
         }
