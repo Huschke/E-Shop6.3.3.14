@@ -71,20 +71,7 @@ public class Artikel {
 		}
 	}
 
-	public static String getNummer() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	public static boolean isVerfuegbar() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	public static String getTitel() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
 }
 

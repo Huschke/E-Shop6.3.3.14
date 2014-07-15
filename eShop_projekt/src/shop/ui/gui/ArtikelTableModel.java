@@ -9,7 +9,7 @@ import shop.valueobjects.Artikel;
 
 public class ArtikelTableModel extends DefaultTableModel{
 
-	 public ArtikelTableModel(final List<Artikel> buecher, final Vector<String> columnNames) {
+	 public ArtikelTableModel(final List<Artikel> art, final Vector<String> columnNames) {
 	        // Ober-Objekt der Klasse DefaultTableModel initialisieren
 	        super();
 
@@ -17,20 +17,20 @@ public class ArtikelTableModel extends DefaultTableModel{
 	        this.columnIdentifiers = columnNames;
 
 	        // Bücher-Liste aufbereiten
-	        this.setDataVector(buecher);
+	        this.setDataVector(art);
 	    }
 
-	    public void setDataVector(final List<Artikel> buecher) {
+	    public void setDataVector(final List<Artikel> art) {
 	        /*
 	         * Bücher aus Liste aufbereiten: DefaultTableModel erwartet Repräsentation der
 	         * Tabellendaten als Vector von Vectoren
 	         */
 	        final Vector<Vector<String>> rows = new Vector<Vector<String>>();
-	        for (final Artikel buch : buecher) {
+	        for (final Artikel Artikel : art) {
 	            final Vector<String> einArtikelAlsVector = new Vector<String>();
-	            einArtikelAlsVector.add(Artikel.getTitel());
-	            einArtikelAlsVector.add(Artikel.getTitel());
-	            einArtikelAlsVector.add(Artikel.isVerfuegbar() ? "verfügbar" : "ausgeliehen");
+	            einArtikelAlsVector.add(Artikel.getArtikelID());
+	            einArtikelAlsVector.add(Artikel.getArtName());
+	            einArtikelAlsVector.add(Artikel.isVerfugbar() ? "verfügbar" : "ausverkauft");
 	            rows.add(einArtikelAlsVector);
 	        }
 	        // Vector von Vectoren mit Bücher-Strings eintragen (geerbte Methode)

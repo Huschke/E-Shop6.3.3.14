@@ -26,10 +26,11 @@ import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
 import shop.ui.gui.ArtikelTableModel;
+import shop.valueobjects.Artikel;
 import shop.ui.gui.SwingGuiLogin.LoginActionListener;
 import shop.domain.ShopManager;
 import shop.exceptions.ArtikelExistiertBereitsException;
-import shop.valueobjects.Artikel;
+
 
 
 public class SwingGuiBuy extends JFrame {
@@ -93,7 +94,7 @@ public class SwingGuiBuy extends JFrame {
         searchPanel.add(alleArtikelButton);
         
 
-        searchPanel.setBorder(BorderFactory.createTitledBorder("Suche"));
+        searchPanel.setBorder(BorderFactory.createTitledBorder("Home"));
 
         // Linke Seite unten
         final JPanel infoPanel = new JPanel();
@@ -195,7 +196,11 @@ public class SwingGuiBuy extends JFrame {
             }
         */
         	if (ae.getSource().equals(alleArtikelButton)){
-        		sho.gibAlleArtikel();
+        		java.util.List<Artikel> art = null;
+        		art = sho.gibAlleArtikel();
+        		
+        		final ArtikelTableModel tModel = (ArtikelTableModel) artikelTable.getModel();
+                tModel.setDataVector(art);
         	}
         }
     }
