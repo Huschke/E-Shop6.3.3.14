@@ -26,7 +26,9 @@ import javax.swing.WindowConstants;
 import shop.ui.gui.SwingGuiRegister.RegisterActionListener;
 import shop.domain.ShopManager;
 import shop.exceptions.ArtikelExistiertBereitsException;
+import shop.exceptions.MitarbeiterExistiertBereitsException;
 import shop.valueobjects.Artikel;
+import shop.valueobjects.Person;
 
 public class SwingGuiRegister extends JFrame {
 	
@@ -220,6 +222,9 @@ public class SwingGuiRegister extends JFrame {
 
 	        loginLabel.addActionListener(new RegisterActionListener());
 	        
+	        registerButton.addActionListener(new RegisterActionListener());
+	        
+	        
 	    
 	        
 	        
@@ -298,8 +303,30 @@ public class SwingGuiRegister extends JFrame {
 					}
                 }
 	        	
+	        	if (ae.getSource().equals(registerButton)) { 
+	        		Person p = null; 
+	        		
+	        		final String nickName = nicknameField.getText(); 
+	        		final String firstName = firstNameField.getText(); 
+	        		final String lastName = lastNameField.getText(); 
+	        		final String mail = mailField.getText(); 
+	        		final String passwort = pwField.getText(); 
+	        		final String streetNumber = streetNumberField.getText(); 
+	        		final String plz = plzField.getText(); 
+	        		final String country = countryField.getText(); 
+	        		System.out.println("Eingelogt mit Passwort: " + passwort + " und Name: " + nickName); 
+	        		try { 
+	        			sho.fuegeMitarbeiterHinzu(nickName, firstName, lastName, passwort); 
+	        			} catch (MitarbeiterExistiertBereitsException e) { 
+	        				// TODO Auto-generated catch block e.printStackTrace(); 
+	        			} 
+	        		}
+	        		
+	        	}
+	        	
 	        }
-	    }
+	        
+	    
 	    
 
 	    // Lokale Klasse für File-Menü

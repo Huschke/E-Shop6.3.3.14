@@ -59,7 +59,7 @@ public class SwingGuiLogin extends JFrame{
     public SwingGuiLogin(String titel, final String datei) throws IOException {
         super(titel);
         initialize();
-        sho = new ShopManager(datei);
+        sho = new ShopManager();
     }
 
     /**
