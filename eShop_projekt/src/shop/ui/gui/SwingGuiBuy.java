@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.Vector;
+import javax.swing.JOptionPane;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
@@ -38,16 +39,14 @@ public class SwingGuiBuy extends JFrame {
 
     private final ShopManager sho;
 
-    private JButton addButton;
-    private JTextField numberField;
-    private JTextField titleField;
     private JTextField searchField;
     private JButton losButton;
     private JTable artikelTable;
     private JButton alleArtikelButton;
     private JButton logOutButton;
-
-    //private JList<Buch> bookList;
+    private JButton warenkorbButton;
+    
+  
 
     private JTextArea infoText;
 
@@ -79,12 +78,16 @@ public class SwingGuiBuy extends JFrame {
         // Eigentlich bräuchten wir nur 3 Zeilen für dieses Panel.
         // Es wird die gleiche Anzahl wie oben verwendet, damit die Textfelder /
         // Buttons etc. gleich skaliert werden:
-        searchPanel.setLayout(new GridLayout(5, 2));
+        searchPanel.setLayout(new GridLayout(7, 2));
         // Leerzeile im Layout...
+        
         searchPanel.add(new JLabel(""));
         logOutButton = new JButton("Abmelden");
         searchPanel.add(logOutButton);
-        
+        searchPanel.add(new JLabel(""));
+        warenkorbButton = new JButton("Warenkorb");
+        searchPanel.add(warenkorbButton);
+
         // ... und hier das eigentliche Suchformular:
         searchPanel.add(new JLabel("Artikelsuche"));
         searchPanel.add(new JLabel(""));
@@ -94,8 +97,11 @@ public class SwingGuiBuy extends JFrame {
         losButton = new JButton("Los");
         searchPanel.add(losButton);
         searchPanel.add(new JLabel(""));
+        searchPanel.add(new JLabel(""));
+        searchPanel.add(new JLabel(""));
         alleArtikelButton = new JButton("Alle Artikel");
         searchPanel.add(alleArtikelButton);
+        
         
 
         searchPanel.setBorder(BorderFactory.createTitledBorder("Home"));
@@ -147,6 +153,7 @@ public class SwingGuiBuy extends JFrame {
         alleArtikelButton.addActionListener(new SearchActionListener());
         logOutButton.addActionListener(new SearchActionListener());
         losButton.addActionListener(new SearchActionListener());
+        warenkorbButton.addActionListener(new SearchActionListener());
 
         // Menüs
         final JMenu fileMenu = new FileMenu();
@@ -184,9 +191,16 @@ public class SwingGuiBuy extends JFrame {
             	java.util.List<Artikel> art = null;
         		art = sho.gibAlleArtikel();
                 final String suchbegriff = searchField.getText();
+                if (suchbegriff.isEmpty()){
+                	JOptionPane.showMessageDialog(null,
+                            "Geben Sie den Namen des Artikels ein!",
+                            "Artikelsuche",					      
+                            JOptionPane.WARNING_MESSAGE);
+                }else{
                 art = sho.sucheArtikel(suchbegriff);
                 final ArtikelTableModel tModel = (ArtikelTableModel) artikelTable.getModel();
                 tModel.setDataVector(art);
+                }
             }
         
         	if (ae.getSource().equals(alleArtikelButton)){
@@ -207,6 +221,12 @@ public class SwingGuiBuy extends JFrame {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+        	}
+        	if(ae.getSource().equals(warenkorbButton)){
+        		//setVisible(false);
+				//dispose();
+        		System.out.println("warenkorb");
+				SwingGuiWarenkorb sgw = new SwingGuiWarenkorb("The Sheb Wop - Warenkorb");
         	}
         }
     }

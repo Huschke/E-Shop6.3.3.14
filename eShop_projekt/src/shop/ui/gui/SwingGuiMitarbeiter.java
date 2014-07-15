@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.Vector;
 
+import javax.swing.JOptionPane;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -26,25 +27,34 @@ import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
 import shop.ui.gui.ArtikelTableModel;
+import shop.valueobjects.Artikel;
+import shop.valueobjects.Mitarbeiter;
+import shop.ui.gui.SwingGuiLogin.LoginActionListener;
+import shop.ui.gui.SwingGuiRegister.RegisterActionListener;
 import shop.domain.ShopManager;
 import shop.exceptions.ArtikelExistiertBereitsException;
-import shop.valueobjects.Artikel;
+
 
 
 public class SwingGuiMitarbeiter extends JFrame {
 
     private final ShopManager sho;
 
-    private JButton addButton;
-    private JTextField numberField;
-    private JTextField titleField;
     private JTextField searchField;
     private JButton losButton;
     private JTable artikelTable;
-
-    //private JList<Buch> bookList;
-
-    private JTextArea infoText;
+    private JButton alleArtikelButton;
+    private JButton logOutButton;
+    private JButton warenkorbButton;
+    private JButton addButton;
+    private JTextField artikelIdField;
+    private JTextField artikelNameField;
+    private JTextField preisField;
+    private JTextField bestandField;
+    private JTextField verfuegbarField;
+    
+    
+  
 
     /**
      * This is the default constructor
@@ -68,72 +78,87 @@ public class SwingGuiMitarbeiter extends JFrame {
         // Klick auf Kreuz (Fenster schließen) behandeln lassen:
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        // Linke Seite oben
-        final JPanel addPanel = new JPanel();
-        addPanel.setLayout(new GridLayout(5, 2));
-        addPanel.add(new JLabel("Nummer:"));
-        addPanel.add(new JLabel("")); // leeres Element für Feld im Grid
-        numberField = new JTextField();
-        addPanel.add(numberField);
-        addPanel.add(new JLabel(""));
-        addPanel.add(new JLabel("Titel:"));
-        addPanel.add(new JLabel(""));
-        titleField = new JTextField();
-        addPanel.add(titleField);
-        addPanel.add(new JLabel(""));
-        addPanel.add(new JLabel(""));
-        addButton = new JButton("Einfügen");
-        addPanel.add(addButton);
-
-        addPanel.setBorder(BorderFactory.createTitledBorder("Einfügen"));
 
         // Linke Seite mitte
         final JPanel searchPanel = new JPanel();
         // Eigentlich bräuchten wir nur 3 Zeilen für dieses Panel.
         // Es wird die gleiche Anzahl wie oben verwendet, damit die Textfelder /
         // Buttons etc. gleich skaliert werden:
-        searchPanel.setLayout(new GridLayout(5, 2));
+        searchPanel.setLayout(new GridLayout(7, 2));
         // Leerzeile im Layout...
+        
         searchPanel.add(new JLabel(""));
+        logOutButton = new JButton("Abmelden");
+        searchPanel.add(logOutButton);
         searchPanel.add(new JLabel(""));
+        warenkorbButton = new JButton("Warenkorb");
+        searchPanel.add(warenkorbButton);
+
         // ... und hier das eigentliche Suchformular:
-        searchPanel.add(new JLabel("Suchbegriff:"));
+        searchPanel.add(new JLabel("Artikelsuche"));
         searchPanel.add(new JLabel(""));
         searchField = new JTextField();
-        searchField.setToolTipText("Suchbegriff hier eintragen!");
+        searchField.setToolTipText("Artikelname hier eingeben!");
         searchPanel.add(searchField);
-        searchPanel.add(new JLabel(""));
-        searchPanel.add(new JLabel(""));
-        losButton = new JButton("Suchen");
+        losButton = new JButton("Los");
         searchPanel.add(losButton);
+        searchPanel.add(new JLabel(""));
+        searchPanel.add(new JLabel(""));
+        searchPanel.add(new JLabel(""));
+        alleArtikelButton = new JButton("Alle Artikel");
+        searchPanel.add(alleArtikelButton);
+        
+        
 
-        searchPanel.setBorder(BorderFactory.createTitledBorder("Suche"));
+        searchPanel.setBorder(BorderFactory.createTitledBorder("Home"));
+      
+ 
+        final JPanel addPanel = new JPanel();
+        addPanel.setLayout(new GridLayout(5, 2));
+        
+        artikelIdField = new JTextField("Artikel ID");
+        addPanel.add(artikelIdField);
+        
+        artikelNameField = new JTextField("Artikel Name");
+        addPanel.add(artikelNameField);
+        
+        addPanel.add(new JLabel("")); 
+        addPanel.add(new JLabel(""));
+        
+        preisField = new JTextField("Preis");
+        addPanel.add(preisField);
+        bestandField = new JTextField("Anzahl");
+        addPanel.add(bestandField);
+        
+        addPanel.add(new JLabel(""));
+        addPanel.add(new JLabel(""));
+        
+        
+        addPanel.add(new JLabel(""));
+        addButton = new JButton("Hinzufügen");
+        addPanel.add(addButton);
+ 
 
-        // Linke Seite unten
-        final JPanel infoPanel = new JPanel();
-        infoPanel.setLayout(new GridLayout(1, 1));
-        infoText = new JTextArea();
-        infoText.setLineWrap(true);
-        infoText.setEnabled(false);
-        infoPanel.add(infoText);
-
-        infoPanel.setBorder(BorderFactory.createTitledBorder("Info"));
+        addPanel.setBorder(BorderFactory.createTitledBorder("Artikel hinzufügen"));
 
         // Linke Seite...
         final JPanel leftPanel = new JPanel();
-        leftPanel.setLayout(new GridLayout(3, 1));
+        leftPanel.setLayout(new GridLayout(2, 1));
         // ... besteht aus dem upper und dem lower Panel
-        leftPanel.add(addPanel);
+        
         leftPanel.add(searchPanel);
-        leftPanel.add(infoPanel);
+        leftPanel.add(addPanel);
 
         // Rechte Seite (Swing-Liste)
 
         // ListModel als "Datencontainer" anlegen:
         final Vector<String> spalten = new Vector<String>();
-        spalten.add("Nr.");
-        spalten.add("Titel");
+        spalten.add("ID");
+        spalten.add("Artikel");
+        spalten.add("Preis");
+        spalten.add("Anzahl");
         spalten.add("Verfügbarkeit");
+        
         // TableModel als "Datencontainer" anlegen:
         final ArtikelTableModel tModel = new ArtikelTableModel(new Vector<Artikel>(), spalten);
         // JTable-Objekt erzeugen und mit Datenmodell initialisieren:
@@ -141,52 +166,31 @@ public class SwingGuiMitarbeiter extends JFrame {
         // JTable in ScrollPane platzieren:
         final JScrollPane east = new JScrollPane(artikelTable);
 
-        // Alles als zweispaltiges Layout zusammenbauen ...
+        //zweispaltiges Layout
         final Container cPane = this.getContentPane();
         cPane.setLayout(new GridLayout(1, 2));
         cPane.add(leftPanel);
         cPane.add(east);
 
-        // Listener registrieren
-        // 1.) Für den Einfügen-Button
-        // (Listener als anonyme Klasse)
-        addButton.addActionListener(new ActionListener() {
-            public void actionPerformed(final ActionEvent ae) {
-                final String titel = titleField.getText();
-                try {
-                    final int nummer = Integer.parseInt(numberField.getText());
-                    inform("Füge Buch mit Nummer " + nummer + " und Titel " + titel
-                            + " ein.");
-                    try {
-                        sho.fuegeEinenArtikelEin(null, titel, titel, nummer, nummer, rootPaneCheckingEnabled);
-                    } catch (final ArtikelExistiertBereitsException e) {
-                        inform("Buch existierte bereits!");
-                    }
-                } catch (final NumberFormatException e) {
-                    inform("Buchnummer muss eine Zahl sein!");
-                }
-            }
-        });
-
-        // 2.) Für den Suchen-Button
-        // (Listener als lokale Klasse; Klasse steht weiter unten)
+        leftPanel.getRootPane().setDefaultButton(losButton);
+        
+        
+        alleArtikelButton.addActionListener(new SearchActionListener());
+        logOutButton.addActionListener(new SearchActionListener());
         losButton.addActionListener(new SearchActionListener());
-
-        // Menü definieren ...
-        // File-Menü erzeugen
+        warenkorbButton.addActionListener(new SearchActionListener());
+        addButton.addActionListener(new SearchActionListener());
+        
+        // Menüs
         final JMenu fileMenu = new FileMenu();
 
-        // Help-Menü erzeugen
         final JMenu helpMenu = new HelpMenu();
-
-        // Menüleiste erzeugen und File- und Help-Menü hinzufügen
         final JMenuBar mBar = new JMenuBar();
         mBar.add(fileMenu);
         mBar.add(helpMenu);
-        // ... und beim Fenster anmelden
+
         this.setJMenuBar(mBar);
 
-        // Fenster anzeigen
         this.setVisible(true);
         this.pack();
     }
@@ -197,37 +201,86 @@ public class SwingGuiMitarbeiter extends JFrame {
     public static void main(String[] args) {
         final String shoFile = "SHO";
         try {
-            new SwingGuiMitarbeiter("The Sheb Wop - Buy Area", shoFile);
+            new SwingGuiBuy("The Sheb Wop - Mitarbeiter-Lounge", shoFile);
         } catch (final IOException e) {
             e.printStackTrace();
         }
     }
 
-    private void inform(final String message) {
-        infoText.setText(message);
-    }
+   
 
     class SearchActionListener implements ActionListener {
-        public void actionPerformed(final ActionEvent ae)  {/*
-            if (ae.getSource().equals(searchButton)) {
-                java.util.List<Buch> buecher = null;
+        public void actionPerformed(final ActionEvent ae)  {
+            if (ae.getSource().equals(losButton)) {
+            	java.util.List<Artikel> art = null;
+        		art = sho.gibAlleArtikel();
                 final String suchbegriff = searchField.getText();
-                if (suchbegriff.isEmpty()) {
-                    buecher = bib.gibAlleBuecher();
-                    inform("Liste alle Bücher!");
-                } else {
-                    buecher = bib.sucheNachTitel(suchbegriff);
-                    inform("Liste Bücher mit gegebenem Titel!");
-                }
-                // Alternative 1: Ausgabe des Suchergebnisses über JList
-                final DefaultListModel<Buch> lModel = (DefaultListModel<Buch>) bookList
-                        .getModel();
-                lModel.removeAllElements();
-                for (final Buch aktBuch : buecher) {
-                    lModel.addElement(aktBuch);
+                if (suchbegriff.isEmpty()){
+                	JOptionPane.showMessageDialog(null,
+                            "Geben Sie den Namen des Artikels ein!",
+                            "Artikelsuche",					      
+                            JOptionPane.WARNING_MESSAGE);
+                }else{
+                art = sho.sucheArtikel(suchbegriff);
+                final ArtikelTableModel tModel = (ArtikelTableModel) artikelTable.getModel();
+                tModel.setDataVector(art);
                 }
             }
-        */}
+        
+        	if (ae.getSource().equals(alleArtikelButton)){
+        		java.util.List<Artikel> art = null;
+        		art = sho.gibAlleArtikel();
+        		
+        		final ArtikelTableModel tModel = (ArtikelTableModel) artikelTable.getModel();
+                tModel.setDataVector(art);
+        	}
+        	if(ae.getSource().equals(logOutButton)){
+        		try {
+   
+					setVisible(false);
+					dispose();
+					SwingGuiLogin sgl = new SwingGuiLogin("The Sheb Wop", "shoFile");
+
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+        	}
+        	if(ae.getSource().equals(warenkorbButton)){
+        		//setVisible(false);
+				//dispose();
+        		System.out.println("warenkorb");
+				SwingGuiWarenkorb sgw = new SwingGuiWarenkorb("The Sheb Wop - Warenkorb");
+        	}
+        	if(ae.getSource().equals(addButton)){
+        		try {
+                    final String Id = artikelIdField.getText();
+                    final String name = artikelNameField.getText();
+                    final String preis = preisField.getText();
+                    final Float flPreis = Float.valueOf(preis);
+                    final int anzahl = Integer.parseInt(bestandField.getText());
+                    
+                    
+                    JOptionPane.showMessageDialog(null,
+                            "Artikel mit name " + name + " und ID " + Id
+                            + " wurde hinzugefügt.",
+                            "Login Fehler",					      
+                            JOptionPane.WARNING_MESSAGE);
+                   
+                    try {
+                        sho.fuegeEinenArtikelEin( Id, name, flPreis, anzahl, true);
+                        sho.schreibeArtikel();
+                    } catch (final ArtikelExistiertBereitsException e) {
+                      
+                    } catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+                } catch (final NumberFormatException e) {
+
+                }
+        	}
+        }
     }
 
     // Lokale Klasse für File-Menü
@@ -251,19 +304,12 @@ public class SwingGuiMitarbeiter extends JFrame {
             final String command = ae.getActionCommand();
             System.out.println(command);
 
-           /*if (command.equals("Quit")) {
-                inform("Programm wird beendet!");
+           if (command.equals("Quit")) {
                 setVisible(false);
                 dispose();
                 System.exit(0);
-            } else if (command.equals("Save")) {
-                try {
-                    sho.schreibeBuecher();
-                    inform("Bücher gespeichert");
-                } catch (final IOException e) {
-                    e.printStackTrace();
-                }
-            }*/
+ 
+            }
         }
     }
 
@@ -275,7 +321,7 @@ public class SwingGuiMitarbeiter extends JFrame {
 
             // Nur zu Testzwecken: Menü mit Untermenü
             final JMenu m = new JMenu("About");
-            m.add(new JMenuItem("Programmers"));
+            m.add(new JMenuItem("Programmers: Adam Czogallik, Johannes Masur"));
             m.add(new JMenuItem("Stuff"));
             this.add(m);
         }

@@ -256,22 +256,7 @@ public class SwingGuiLogin extends JFrame{
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-                //java.util.List<Buch> buecher = null;
-                //final String suchbegriff = nicknameField.getText();
-                /*if (suchbegriff.isEmpty()) {
-                    buecher = bib.gibAlleBuecher();
-                    inform("Liste alle Bücher!");
-                } else {
-                    buecher = bib.sucheNachTitel(suchbegriff);
-                    inform("Liste Bücher mit gegebenem Titel!");
-                }
-                // Alternative 1: Ausgabe des Suchergebnisses über JList
-                final DefaultListModel<Buch> lModel = (DefaultListModel<Buch>) bookList
-                        .getModel();
-                lModel.removeAllElements();
-                for (final Buch aktBuch : buecher) {
-                    lModel.addElement(aktBuch);
-                }*/
+      
             }
             if (ae.getSource().equals(loginButton)) {
             	Person p = null;
@@ -288,13 +273,23 @@ public class SwingGuiLogin extends JFrame{
 					setVisible(false);
 					dispose();
 					
+					if(sho.mitarb == true){
+						try {
+							System.out.println("mitarbeiter login");
+							SwingGuiMitarbeiter sgb = new SwingGuiMitarbeiter("The Sheb Wop", passwort);
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}else{
+						System.out.println("kunden login");
 					try {
 						SwingGuiBuy sgb = new SwingGuiBuy("The Sheb Wop", passwort);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-				}
+				}}
 				
             }
          }

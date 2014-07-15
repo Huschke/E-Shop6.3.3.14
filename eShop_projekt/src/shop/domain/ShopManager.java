@@ -74,7 +74,7 @@ public class ShopManager {
 	 * @param verfuegbar
 	 * @throws ArtikelExistiertBereitsException
 	 */
-	public void fuegeEinenArtikelEin(Mitarbeiter mitarbeiter, String artikelId, String artikelName,
+	public void fuegeEinenArtikelEin( String artikelId, String artikelName,
 			float preis, int bestand, boolean verfuegbar) throws ArtikelExistiertBereitsException {
 		Artikel artikel = new Artikel(artikelId, artikelName, preis, bestand, verfuegbar);
 		listeArtikel.einfuegenArtikel(artikel);
@@ -222,6 +222,8 @@ public class ShopManager {
 
 	}
 	
+	public boolean mitarb = false;
+	
 	public Person ueberpruefeLogin(String benutzername, String passwort) {
 		Person p = null;
 		
@@ -229,6 +231,7 @@ public class ShopManager {
 		while(iterKunde.hasNext()){
 			p = iterKunde.next();
 			if (p.getBenutzername().equals(benutzername) && p.getPasswort().equals(passwort)) {
+				mitarb = false;
 				return p;
 			}
 		}
@@ -236,6 +239,7 @@ public class ShopManager {
 		while(iterMit.hasNext()) {
 			p = iterMit.next();
 			if (p.getBenutzername().equals(benutzername) && p.getPasswort().equals(passwort)) {
+				mitarb = true;
 				return p;
 			}
 		}
