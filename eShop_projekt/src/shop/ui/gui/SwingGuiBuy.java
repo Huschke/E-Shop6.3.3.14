@@ -131,32 +131,29 @@ public class SwingGuiBuy extends JFrame {
         // JTable in ScrollPane platzieren:
         final JScrollPane east = new JScrollPane(artikelTable);
 
-        // Alles als zweispaltiges Layout zusammenbauen ...
+        //zweispaltiges Layout
         final Container cPane = this.getContentPane();
         cPane.setLayout(new GridLayout(1, 2));
         cPane.add(leftPanel);
         cPane.add(east);
 
-   
+        leftPanel.getRootPane().setDefaultButton(losButton);
+        
+        
         alleArtikelButton.addActionListener(new SearchActionListener());
         
         losButton.addActionListener(new SearchActionListener());
 
-        // Menü definieren ...
-        // File-Menü erzeugen
+        // Menüs
         final JMenu fileMenu = new FileMenu();
 
-        // Help-Menü erzeugen
         final JMenu helpMenu = new HelpMenu();
-
-        // Menüleiste erzeugen und File- und Help-Menü hinzufügen
         final JMenuBar mBar = new JMenuBar();
         mBar.add(fileMenu);
         mBar.add(helpMenu);
-        // ... und beim Fenster anmelden
+
         this.setJMenuBar(mBar);
 
-        // Fenster anzeigen
         this.setVisible(true);
         this.pack();
     }
@@ -178,26 +175,16 @@ public class SwingGuiBuy extends JFrame {
     }
 
     class SearchActionListener implements ActionListener {
-        public void actionPerformed(final ActionEvent ae)  {/*
-            if (ae.getSource().equals(searchButton)) {
-                java.util.List<Buch> buecher = null;
+        public void actionPerformed(final ActionEvent ae)  {
+            if (ae.getSource().equals(losButton)) {
+            	java.util.List<Artikel> art = null;
+        		art = sho.gibAlleArtikel();
                 final String suchbegriff = searchField.getText();
-                if (suchbegriff.isEmpty()) {
-                    buecher = bib.gibAlleBuecher();
-                    inform("Liste alle Bücher!");
-                } else {
-                    buecher = bib.sucheNachTitel(suchbegriff);
-                    inform("Liste Bücher mit gegebenem Titel!");
-                }
-                // Alternative 1: Ausgabe des Suchergebnisses über JList
-                final DefaultListModel<Buch> lModel = (DefaultListModel<Buch>) bookList
-                        .getModel();
-                lModel.removeAllElements();
-                for (final Buch aktBuch : buecher) {
-                    lModel.addElement(aktBuch);
-                }
+                art = sho.sucheArtikel(suchbegriff);
+                final ArtikelTableModel tModel = (ArtikelTableModel) artikelTable.getModel();
+                tModel.setDataVector(art);
             }
-        */
+        
         	if (ae.getSource().equals(alleArtikelButton)){
         		java.util.List<Artikel> art = null;
         		art = sho.gibAlleArtikel();
