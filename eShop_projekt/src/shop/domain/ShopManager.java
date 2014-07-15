@@ -259,8 +259,13 @@ public class ShopManager {
 		return null;		
 	}
 	
+	//
+	//CUI - Kunden und Mitarbeiter LogIns
+	//
 	
-	
+	/**
+	 * Methode die den Login des Mitarbieters ueberprueft und started
+	 */
 	public void starteMitarbeiterbereich() {
 		
 		boolean logInOk = false;
@@ -285,6 +290,9 @@ public class ShopManager {
 		
 	}
 	
+	/**
+	 * Methode die den kunden Login ueberprueft und startet
+	 */
 	public void starteKundenbereich () {
 		
 		boolean logInOk = false;
