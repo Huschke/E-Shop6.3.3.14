@@ -28,11 +28,13 @@ import javax.swing.table.TableModel;
 
 
 
+
 import shop.domain.ShopManager;
 import shop.exceptions.ArtikelExistiertBereitsException;
 import shop.exceptions.PasswortFalschException;
 import shop.ui.gui.SwingGuiRegister.RegisterActionListener;
 import shop.valueobjects.Artikel;
+import shop.valueobjects.Person;
 
 public class SwingGuiLogin extends JFrame{
 	
@@ -195,7 +197,8 @@ public class SwingGuiLogin extends JFrame{
         cPane.setLayout(new GridLayout(1, 1));
         cPane.add(loginPanel);
         
-
+        loginPanel.getRootPane().setDefaultButton(loginButton);
+        
         registrierButton.addActionListener(new LoginActionListener());
      
      
@@ -267,12 +270,15 @@ public class SwingGuiLogin extends JFrame{
                 }*/
             }
             if (ae.getSource().equals(loginButton)) {
+            	Person p = null;
+            	
+            	
             
 	            final String name = nicknameField.getText();
 	            
 	            final String passwort= passwordField.getText();
 				System.out.println("Eingelogt mit Passwort: " + passwort + " und Name: " + name);
-				//sho.fuegeBuchEin(titel, nummer);
+				p = sho.ueberpruefeLogin(name, passwort);
 				
             }
          }
