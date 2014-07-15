@@ -118,9 +118,12 @@ public class SwingGuiBuy extends JFrame {
 
         // ListModel als "Datencontainer" anlegen:
         final Vector<String> spalten = new Vector<String>();
-        spalten.add("Nr.");
-        spalten.add("Titel");
+        spalten.add("ID");
+        spalten.add("Artikel");
+        spalten.add("Preis");
+        spalten.add("Anzahl");
         spalten.add("Verfügbarkeit");
+        
         // TableModel als "Datencontainer" anlegen:
         final ArtikelTableModel tModel = new ArtikelTableModel(new Vector<Artikel>(), spalten);
         // JTable-Objekt erzeugen und mit Datenmodell initialisieren:

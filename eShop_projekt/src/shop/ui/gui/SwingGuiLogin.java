@@ -30,6 +30,7 @@ import javax.swing.table.TableModel;
 
 
 
+
 import shop.domain.ShopManager;
 import shop.exceptions.ArtikelExistiertBereitsException;
 import shop.exceptions.PasswortFalschException;
@@ -242,7 +243,8 @@ public class SwingGuiLogin extends JFrame{
 
 
     class LoginActionListener implements ActionListener {
-        public void actionPerformed(final ActionEvent ae) {
+        @SuppressWarnings("deprecation")
+		public void actionPerformed(final ActionEvent ae) {
             if (ae.getSource().equals(registrierButton)) {
             
             	setVisible(false);

@@ -30,6 +30,8 @@ public class ArtikelTableModel extends DefaultTableModel{
 	            final Vector<String> einArtikelAlsVector = new Vector<String>();
 	            einArtikelAlsVector.add(Artikel.getArtikelID());
 	            einArtikelAlsVector.add(Artikel.getArtName());
+	            einArtikelAlsVector.add(Float.toString(Artikel.getPreis()));
+	            einArtikelAlsVector.add(Integer.toString(Artikel.getArtikelMenge()));
 	            einArtikelAlsVector.add(Artikel.isVerfugbar() ? "verfügbar" : "ausverkauft");
 	            rows.add(einArtikelAlsVector);
 	        }
