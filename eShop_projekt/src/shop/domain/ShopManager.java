@@ -56,9 +56,6 @@ public class ShopManager {
 	private KundenManager kundenMgmt;
 	private MitarbeiterManager mitarbeiterMgmt;
 	
-	public ClientCUI cui = new ClientCUI();
-	
-	
 	
 	public ShopManager() throws IOException {
 		 
@@ -270,10 +267,11 @@ public class ShopManager {
 		
 		try{
 			do{
-				logInOk = mitarbeiterMgmt.kundenLogin();
+				logInOk = mitarbeiterMgmt.mitarbeiterLogin();
 					if(logInOk){
-						KundenClientCUI k = new KundenClientCUI();			
-						k.kClRun();
+						System.out.println("jetzt wuerde die mitarbeiterCUI gestartet werden");
+						//KundenClientCUI k = new KundenClientCUI();			
+						//k.kClRun();
 					}	
 					else{
 						System.out.println("Benutzername oder Passwort ist falsch!");
@@ -295,8 +293,9 @@ public class ShopManager {
 			do{
 				logInOk = kundenMgmt.kundenLogin();
 				if(logInOk){
-					KundenClientCUI k = new KundenClientCUI();				
-					k.kClRun();
+					System.out.println("jetzt wuerde die kundenCUI gestartet werden");
+					//KundenClientCUI k = new KundenClientCUI();				
+					//k.kClRun();
 				} else {	
 					System.out.println("Benutzername oder Passwort ist falsch!");
 				}
