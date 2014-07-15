@@ -26,13 +26,12 @@ import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
 import shop.ui.gui.ArtikelTableModel;
-import shop.ui.gui.SwingGuiLogin.LoginActionListener;
 import shop.domain.ShopManager;
 import shop.exceptions.ArtikelExistiertBereitsException;
 import shop.valueobjects.Artikel;
 
 
-public class SwingGuiBuy extends JFrame {
+public class SwingGuiMitarbeiter extends JFrame {
 
     private final ShopManager sho;
 
@@ -42,7 +41,6 @@ public class SwingGuiBuy extends JFrame {
     private JTextField searchField;
     private JButton losButton;
     private JTable artikelTable;
-    private JButton alleArtikelButton;
 
     //private JList<Buch> bookList;
 
@@ -53,7 +51,7 @@ public class SwingGuiBuy extends JFrame {
      * 
      * @throws IOException
      */
-    public SwingGuiBuy(String titel, final String datei) throws IOException {
+    public SwingGuiMitarbeiter(String titel, final String datei) throws IOException {
         super(titel);
         initialize();
         sho = new ShopManager();
@@ -70,6 +68,24 @@ public class SwingGuiBuy extends JFrame {
         // Klick auf Kreuz (Fenster schließen) behandeln lassen:
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
+        // Linke Seite oben
+        final JPanel addPanel = new JPanel();
+        addPanel.setLayout(new GridLayout(5, 2));
+        addPanel.add(new JLabel("Nummer:"));
+        addPanel.add(new JLabel("")); // leeres Element für Feld im Grid
+        numberField = new JTextField();
+        addPanel.add(numberField);
+        addPanel.add(new JLabel(""));
+        addPanel.add(new JLabel("Titel:"));
+        addPanel.add(new JLabel(""));
+        titleField = new JTextField();
+        addPanel.add(titleField);
+        addPanel.add(new JLabel(""));
+        addPanel.add(new JLabel(""));
+        addButton = new JButton("Einfügen");
+        addPanel.add(addButton);
+
+        addPanel.setBorder(BorderFactory.createTitledBorder("Einfügen"));
 
         // Linke Seite mitte
         final JPanel searchPanel = new JPanel();
@@ -81,17 +97,15 @@ public class SwingGuiBuy extends JFrame {
         searchPanel.add(new JLabel(""));
         searchPanel.add(new JLabel(""));
         // ... und hier das eigentliche Suchformular:
-        searchPanel.add(new JLabel("Artikelsuche"));
+        searchPanel.add(new JLabel("Suchbegriff:"));
         searchPanel.add(new JLabel(""));
         searchField = new JTextField();
-        searchField.setToolTipText("Artikelname hier eingeben!");
+        searchField.setToolTipText("Suchbegriff hier eintragen!");
         searchPanel.add(searchField);
-        losButton = new JButton("Los");
-        searchPanel.add(losButton);
         searchPanel.add(new JLabel(""));
-        alleArtikelButton = new JButton("Alle Artikel");
-        searchPanel.add(alleArtikelButton);
-        
+        searchPanel.add(new JLabel(""));
+        losButton = new JButton("Suchen");
+        searchPanel.add(losButton);
 
         searchPanel.setBorder(BorderFactory.createTitledBorder("Suche"));
 
@@ -107,9 +121,9 @@ public class SwingGuiBuy extends JFrame {
 
         // Linke Seite...
         final JPanel leftPanel = new JPanel();
-        leftPanel.setLayout(new GridLayout(2, 1));
+        leftPanel.setLayout(new GridLayout(3, 1));
         // ... besteht aus dem upper und dem lower Panel
-        
+        leftPanel.add(addPanel);
         leftPanel.add(searchPanel);
         leftPanel.add(infoPanel);
 
@@ -133,9 +147,29 @@ public class SwingGuiBuy extends JFrame {
         cPane.add(leftPanel);
         cPane.add(east);
 
-   
-        alleArtikelButton.addActionListener(new SearchActionListener());
-        
+        // Listener registrieren
+        // 1.) Für den Einfügen-Button
+        // (Listener als anonyme Klasse)
+        addButton.addActionListener(new ActionListener() {
+            public void actionPerformed(final ActionEvent ae) {
+                final String titel = titleField.getText();
+                try {
+                    final int nummer = Integer.parseInt(numberField.getText());
+                    inform("Füge Buch mit Nummer " + nummer + " und Titel " + titel
+                            + " ein.");
+                    try {
+                        sho.fuegeEinenArtikelEin(null, titel, titel, nummer, nummer, rootPaneCheckingEnabled);
+                    } catch (final ArtikelExistiertBereitsException e) {
+                        inform("Buch existierte bereits!");
+                    }
+                } catch (final NumberFormatException e) {
+                    inform("Buchnummer muss eine Zahl sein!");
+                }
+            }
+        });
+
+        // 2.) Für den Suchen-Button
+        // (Listener als lokale Klasse; Klasse steht weiter unten)
         losButton.addActionListener(new SearchActionListener());
 
         // Menü definieren ...
@@ -163,7 +197,7 @@ public class SwingGuiBuy extends JFrame {
     public static void main(String[] args) {
         final String shoFile = "SHO";
         try {
-            new SwingGuiBuy("The Sheb Wop - Buy Area", shoFile);
+            new SwingGuiMitarbeiter("The Sheb Wop - Buy Area", shoFile);
         } catch (final IOException e) {
             e.printStackTrace();
         }
@@ -193,11 +227,7 @@ public class SwingGuiBuy extends JFrame {
                     lModel.addElement(aktBuch);
                 }
             }
-        */
-        	if (ae.getSource().equals(alleArtikelButton)){
-        		sho.gibAlleArtikel();
-        	}
-        }
+        */}
     }
 
     // Lokale Klasse für File-Menü

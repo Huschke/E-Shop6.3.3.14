@@ -318,9 +318,9 @@ public class SwingGuiRegister extends JFrame {
 	        		final int plz =  Integer.parseInt(plzField.getText());
 	        		final String country = countryField.getText(); 
 	        		final float umsatz = 0;
-	        		System.out.println("Eingelogt mit Passwort: " + passwort + " und Name: " + nickName); 
+	        		System.out.println("Registriert mit Name: " + nickName); 
 	        		try { 
-	        			//nickName, firstName, lastName, mail, passwort, streetNumber, plz, country, umsatz
+	        			
 	        			sho.fuegeKundeHinzu(nickName, firstName, lastName, mail, passwort, streetNumber, plz, country, umsatz);
 	        			sho.schreibeKunde();
 	        			} catch (IOException e) {

@@ -29,6 +29,7 @@ import javax.swing.table.TableModel;
 
 
 
+
 import shop.domain.ShopManager;
 import shop.exceptions.ArtikelExistiertBereitsException;
 import shop.exceptions.PasswortFalschException;
@@ -280,6 +281,18 @@ public class SwingGuiLogin extends JFrame{
 	            final String passwort= passwordField.getText();
 				System.out.println("Eingelogt mit Passwort: " + passwort + " und Name: " + name);
 				p = sho.ueberpruefeLogin(name, passwort);
+				if(p!= null){
+					
+					setVisible(false);
+					dispose();
+					
+					try {
+						SwingGuiBuy sgb = new SwingGuiBuy("The Sheb Wop", passwort);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
 				
             }
          }
