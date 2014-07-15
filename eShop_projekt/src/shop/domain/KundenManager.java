@@ -158,7 +158,26 @@ public class KundenManager {
 		return in.readLine();
 		
 	}
-
-
 	
+	public boolean kundenLogin() throws IOException{
+		
+		String benutzername = "";
+		String passwort = "";
+		
+		System.out.println("//----  Kunden-Login  ----//");
+		System.out.print("Benutzername> ");
+		benutzername = liesEingabe();
+		
+		System.out.print("Passwort> ");
+		passwort = liesEingabe();
+		
+		Iterator<Kunde> iter = kundenListe.iterator();
+		while(iter.hasNext()){
+			Kunde k = (Kunde) iter.next();
+			if(k.getBenutzername().equals(benutzername)&& k.getPasswort().equals(passwort)){
+				return true;
+			}
+		}
+		return false;
+	}
 }

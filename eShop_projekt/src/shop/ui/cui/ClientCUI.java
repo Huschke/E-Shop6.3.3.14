@@ -21,11 +21,6 @@ import shop.valueobjects.Warenkorb;
 public class ClientCUI {
 	
 	private ShopManager shopMgmt;
-	private KundenManager kundenMgmt;
-	private MitarbeiterManager mitarbeiterMgmt;
-	
-	Vector<Mitarbeiter> mitarbeiterListe = new Vector<Mitarbeiter>();
-	List<Kunde> kundenListe = new Vector<Kunde>();
 	
 	private BufferedReader in;
 	
@@ -36,10 +31,6 @@ public class ClientCUI {
 		in = new BufferedReader(new InputStreamReader(System.in));
 		
 		shopMgmt = new ShopManager();
-		
-		mitarbeiterListe = mitarbeiterMgmt.getMitarbeiterliste();
-			
-		kundenListe = kundenMgmt.getKundenliste();
 	}
 	
 	public String liesEingabe() throws IOException {
@@ -92,96 +83,6 @@ public class ClientCUI {
 			
 		}while(!((wahl.equals("1") || wahl.equals("2"))));
 		return wahl;
-		
-	}
-
-	public void starteMitarbeiterbereich() {
-		
-		boolean logInOk = false;
-		
-		try{
-			do{
-				logInOk = kundenLogin();
-					if(logInOk){
-						KundenClientCUI k = new KundenClientCUI(""); //TODO: clienCUI!!!!				
-						k.kClRun();
-					}	
-					else{
-						System.out.println("Benutzername oder Passwort ist falsch!");
-					}
-			
-			
-			}while(!logInOk);
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		
-	}
-	
-	public void starteKundenbereich () {
-		
-		boolean logInOk = false;
-		
-		try{
-			do{
-				logInOk = kundenVt.kundenLogin();
-				if(logInOk){
-					KundenClientCUI k = new KundenClientCUI("Bier");				
-					k.kClRun();
-				} else {	
-					System.out.println("Benutzername oder Passwort ist falsch!");
-				}
-			
-			}while(!logInOk);
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		
-	}
-	
-	public boolean kundenLogin() throws IOException{
-		
-		String benutzername = "";
-		String passwort = "";
-		
-		System.out.println("//----  Kunden-Login  ----//");
-		System.out.print("Benutzername> ");
-		benutzername = liesEingabe();
-		
-		System.out.print("Passwort> ");
-		passwort = liesEingabe();
-		
-		Iterator<Kunde> iter = kundenListe.iterator();
-		while(iter.hasNext()){
-			Kunde k = (Kunde) iter.next();
-			if(k.getBenutzername().equals(benutzername)&& k.getPasswort().equals(passwort)){
-				return true;
-			}
-		}
-		return false;
-		
-	}
-	
-	public boolean mitarbeiterLogin() throws IOException{
-		
-		String benutzername = "";
-		String passwort = "";
-		
-		System.out.println("-Mitarbeiter Login-");
-		System.out.print("Benutzername : ");
-		benutzername = liesEingabe();
-		
-		System.out.print("Passwort : ");
-		passwort = liesEingabe();
-		
-		Iterator<Mitarbeiter> iter = mitarbeiterListe.iterator();
-		while(iter.hasNext()){
-			Mitarbeiter m = (Mitarbeiter) iter.next();
-			if(m.getBenutzername().equals(benutzername)&&m.getPasswort().equals(passwort)){
-				return true;
-			}
-		}
-		return false;
 		
 	}
 	

@@ -25,6 +25,8 @@ import java.util.Vector;
 
 
 
+
+
 import shop.exceptions.ArtikelExistiertBereitsException;
 import shop.exceptions.ArtikelMitNummerNichtGefundenException;
 import shop.exceptions.ArtikelNichtGefundenException;
@@ -32,6 +34,8 @@ import shop.exceptions.KundeExistiertBereitsException;
 import shop.exceptions.KundeNichtGefundenException;
 import shop.exceptions.MitarbeiterExistiertBereitsException;
 import shop.exceptions.MitarbeiterNichtGefundenException;
+import shop.ui.cui.ClientCUI;
+import shop.ui.cui.KundenClientCUI;
 import shop.valueobjects.Artikel;
 import shop.valueobjects.Kunde;
 import shop.valueobjects.Mitarbeiter;
@@ -51,6 +55,8 @@ public class ShopManager {
 	private ArtikelListe listeArtikel;
 	private KundenManager kundenMgmt;
 	private MitarbeiterManager mitarbeiterMgmt;
+	
+	public ClientCUI cui = new ClientCUI();
 	
 	
 	
@@ -256,5 +262,48 @@ public class ShopManager {
 		return null;		
 	}
 	
+	
+	
+	public void starteMitarbeiterbereich() {
 		
+		boolean logInOk = false;
+		
+		try{
+			do{
+				logInOk = mitarbeiterMgmt.kundenLogin();
+					if(logInOk){
+						KundenClientCUI k = new KundenClientCUI();			
+						k.kClRun();
+					}	
+					else{
+						System.out.println("Benutzername oder Passwort ist falsch!");
+					}
+			
+			
+			}while(!logInOk);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public void starteKundenbereich () {
+		
+		boolean logInOk = false;
+		
+		try{
+			do{
+				logInOk = kundenMgmt.kundenLogin();
+				if(logInOk){
+					KundenClientCUI k = new KundenClientCUI();				
+					k.kClRun();
+				} else {	
+					System.out.println("Benutzername oder Passwort ist falsch!");
+				}
+			
+			}while(!logInOk);
+		}catch(Exception e){
+			e.printStackTrace();
+		}	
+	}		
 }
