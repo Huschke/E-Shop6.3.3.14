@@ -8,22 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+import javax.swing.JOptionPane;
 
 import shop.exceptions.ArtikelExistiertBereitsException;
 import shop.exceptions.ArtikelMitNummerNichtGefundenException;
@@ -32,6 +17,8 @@ import shop.exceptions.KundeExistiertBereitsException;
 import shop.exceptions.KundeNichtGefundenException;
 import shop.exceptions.MitarbeiterExistiertBereitsException;
 import shop.exceptions.MitarbeiterNichtGefundenException;
+import shop.ui.gui.SwingGuiBuy;
+import shop.ui.gui.SwingGuiLogin;
 import shop.valueobjects.Artikel;
 import shop.valueobjects.Kunde;
 import shop.valueobjects.Mitarbeiter;
@@ -126,6 +113,7 @@ public class ShopManager {
 	 */
 	public ArrayList<Artikel> gibAlleArtikel() {
 		return listeArtikel.getArtikelBestand();
+		
 	}
 	
 	/**
@@ -243,6 +231,8 @@ public class ShopManager {
 		while(iterKunde.hasNext()){
 			p = iterKunde.next();
 			if (p.getBenutzername().equals(benutzername) && p.getPasswort().equals(passwort)) {
+				System.out.println(p.getPlz());
+				
 				return p;
 			}
 		}
@@ -250,9 +240,15 @@ public class ShopManager {
 		while(iterMit.hasNext()) {
 			p = iterMit.next();
 			if (p.getBenutzername().equals(benutzername) && p.getPasswort().equals(passwort)) {
+				System.out.println(p);
 				return p;
 			}
-		}
+		}//Pop up /Userausgabe
+		System.out.println("Passwort oder Nickname falsch!");
+		JOptionPane.showMessageDialog(null,
+                "Passwort oder Nickname ist falsch!",
+                "LogIn Fehler",					      
+                JOptionPane.WARNING_MESSAGE);
 		return null;		
 	}
 	
