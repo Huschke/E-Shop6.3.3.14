@@ -270,7 +270,7 @@ public class ShopManager {
 				logInOk = mitarbeiterMgmt.mitarbeiterLogin();
 					if(logInOk){
 						System.out.println("jetzt wuerde die mitarbeiterCUI gestartet werden");
-						//KundenClientCUI k = new KundenClientCUI();			
+						//MitarbeiterCUI m = new MitarbeiterCUI();			
 						//k.kClRun();
 					}	
 					else{
@@ -294,7 +294,7 @@ public class ShopManager {
 				logInOk = kundenMgmt.kundenLogin();
 				if(logInOk){
 					System.out.println("jetzt wuerde die kundenCUI gestartet werden");
-					//KundenClientCUI k = new KundenClientCUI();				
+					//KundenCUI k = new KundenCUI();				
 					//k.kClRun();
 				} else {	
 					System.out.println("Benutzername oder Passwort ist falsch!");
