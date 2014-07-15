@@ -320,8 +320,13 @@ public class SwingGuiRegister extends JFrame {
 	        		final float umsatz = 0;
 	        		System.out.println("Eingelogt mit Passwort: " + passwort + " und Name: " + nickName); 
 	        		try { 
+	        			//nickName, firstName, lastName, mail, passwort, streetNumber, plz, country, umsatz
 	        			sho.fuegeKundeHinzu(nickName, firstName, lastName, mail, passwort, streetNumber, plz, country, umsatz);
-	        			} catch (KundeExistiertBereitsException e) {
+	        			sho.schreibeKunde();
+	        			} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (KundeExistiertBereitsException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						} 
