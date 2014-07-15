@@ -13,9 +13,7 @@ import shop.valueobjects.Kunde;
 import shop.valueobjects.Mitarbeiter;
 import shop.valueobjects.ShopEreignis;
 
-//TODO !!!
-//TODO !!! Methoden aus Jonathans CSV-Datei implementieren und umformen.
-//TODO !!!
+
 public class FileLogPersistenceManager implements LogPersistenceManager{
 	
 	private BufferedReader in = null;
@@ -80,6 +78,7 @@ public class FileLogPersistenceManager implements LogPersistenceManager{
 	public boolean speichereArtikel(Artikel a) throws IOException {
 		schreibeZeile(a.getArtikelID());
 		schreibeZeile(a.getArtName());
+		schreibeZeile(new Float(a.getPreis()).toString());
 		schreibeZeile(new Integer(a.getArtikelMenge()).toString());
 		
 		if(a.isVerfugbar()) {
@@ -93,11 +92,15 @@ public class FileLogPersistenceManager implements LogPersistenceManager{
 	
 	public Artikel ladeArtikel() throws IOException {
 		String artikelId = liesZeile();
+		if (artikelId == null) {
+			return null;
+		}
 		
 		String artikelName = liesZeile();
 		
 		String artikelPreisString = liesZeile();
 		float artikelPreis = Float.parseFloat(artikelPreisString);
+		//System.out.println(artikelPreis);
 		
 		String artikelMengeString = liesZeile();
 		int artikelMenge = Integer.parseInt(artikelMengeString);
@@ -128,7 +131,12 @@ public class FileLogPersistenceManager implements LogPersistenceManager{
 		return true;
 	}
 	public Kunde ladeKunde() throws IOException {
+		
 		String benutzername = liesZeile();
+		
+		if(benutzername == null){
+			return null;
+		}
 		
 		String vorname = liesZeile();
 		
@@ -141,7 +149,9 @@ public class FileLogPersistenceManager implements LogPersistenceManager{
 		String strasseNummer = liesZeile();
 		
 		String plzString = liesZeile();
+		System.out.println(plzString);
 		int plz = Integer.parseInt(plzString);
+		
 		
 		String wohnort = liesZeile();
 		
@@ -162,6 +172,10 @@ public class FileLogPersistenceManager implements LogPersistenceManager{
 	
 	public Mitarbeiter ladeMitarbeiter() throws IOException {
 		String benutzername = liesZeile();
+		
+		if(benutzername == null){
+			return null;
+		}
 		
 		String vorname = liesZeile();
 		

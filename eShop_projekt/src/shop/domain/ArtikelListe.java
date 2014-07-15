@@ -62,6 +62,7 @@ public class ArtikelListe {
 						e.printStackTrace();
 					}				
 			}
+			//System.out.println(einArtikel);
 		} while (einArtikel != null);
 	
 		pm.close();
