@@ -100,7 +100,7 @@ public class FileLogPersistenceManager implements LogPersistenceManager{
 		
 		String artikelPreisString = liesZeile();
 		float artikelPreis = Float.parseFloat(artikelPreisString);
-		//System.out.println(artikelPreis);
+		
 		
 		String artikelMengeString = liesZeile();
 		int artikelMenge = Integer.parseInt(artikelMengeString);
@@ -149,7 +149,7 @@ public class FileLogPersistenceManager implements LogPersistenceManager{
 		String strasseNummer = liesZeile();
 		
 		String plzString = liesZeile();
-		System.out.println(plzString);
+		
 		int plz = Integer.parseInt(plzString);
 		
 		
