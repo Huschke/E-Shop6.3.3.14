@@ -145,5 +145,26 @@ public class MitarbeiterManager {
 			
 		}
 
-		
+		public boolean mitarbeiterLogin() throws IOException{
+			
+			String benutzername = "";
+			String passwort = "";
+			
+			System.out.println("-Mitarbeiter Login-");
+			System.out.print("Benutzername : ");
+			benutzername = liesEingabe();
+			
+			System.out.print("Passwort : ");
+			passwort = liesEingabe();
+			
+			Iterator<Mitarbeiter> iter = mitarbeiterListe.iterator();
+			while(iter.hasNext()){
+				Mitarbeiter m = (Mitarbeiter) iter.next();
+				if(m.getBenutzername().equals(benutzername)&&m.getPasswort().equals(passwort)){
+					return true;
+				}
+			}
+			return false;
+			
+		}
 }

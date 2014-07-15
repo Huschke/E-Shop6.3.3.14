@@ -29,38 +29,6 @@ public class  Warenkorb {
 		return inhalt;
 	}
 	
-	
-	
 }
 	
-	/*
-	
-	
-	public Warenkorb(int anz, String artName){
-		this.anz = anz;
-			
-	}
-	
-	public List<Artikel> getEinkäufe() {
-		List<Artikel> einkaufsListe = new ArrayList<Artikel>();
-		
-		
-		
-		return einkaufsListe;
-		
-	}
 
-	public void add(Artikel artikel) {
-		// TODO Auto-generated method stub
-		
-		
-	}
-	
-	
-	
-	//public void hinzufügArtikel(Artikel artikel, float preis) {
-	//	einkaufsListe.add(anz, artikel);
-	//}
-   
-}
-*/
