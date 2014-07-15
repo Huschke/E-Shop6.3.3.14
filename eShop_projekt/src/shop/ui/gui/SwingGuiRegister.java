@@ -26,6 +26,7 @@ import javax.swing.WindowConstants;
 import shop.ui.gui.SwingGuiRegister.RegisterActionListener;
 import shop.domain.ShopManager;
 import shop.exceptions.ArtikelExistiertBereitsException;
+import shop.exceptions.KundeExistiertBereitsException;
 import shop.exceptions.MitarbeiterExistiertBereitsException;
 import shop.valueobjects.Artikel;
 import shop.valueobjects.Person;
@@ -109,10 +110,10 @@ public class SwingGuiRegister extends JFrame {
 	        
 	        loginPanel.add(new JLabel("						"));
 	        loginPanel.add(new JLabel("						"));
-	        lastNameField = new JTextField("Nachname");
+	        lastNameField = new JTextField("Nachname *");
 	        loginPanel.add(lastNameField);
 	        lastNameField.setToolTipText("<html>Hier kommt dein Nachname hin, Duh!</html>");
-	        firstNameField = new JTextField("Vorname");
+	        firstNameField = new JTextField("Vorname *");
 	        loginPanel.add(firstNameField);
 	        firstNameField.setToolTipText("<html>Hier kommt dein Vorname hin!</html>");
 	        loginPanel.add(new JLabel("						"));
@@ -130,7 +131,7 @@ public class SwingGuiRegister extends JFrame {
 	        mailField = new JTextField("E-Mail");
 	        loginPanel.add(mailField);
 	        mailField.setToolTipText("<html>Deine gültige E-mail Adresse.</html>");
-	        pwField = new JTextField("Passwort");
+	        pwField = new JTextField("Passwort *");
 	        loginPanel.add(pwField);
 	        pwField.setToolTipText("<html>Benutze ein Passwort, dass du<br> dir gut merken kannst!</html>");
 	        loginPanel.add(new JLabel("						"));
@@ -145,7 +146,7 @@ public class SwingGuiRegister extends JFrame {
 	        
 	        loginPanel.add(new JLabel("						"));
 	        loginPanel.add(new JLabel("						"));
-	        nicknameField = new JTextField("Nickname");
+	        nicknameField = new JTextField("Nickname *");
 	        loginPanel.add(nicknameField);
 	        nicknameField.setToolTipText("<html>Den Nicknamen brauchst du,<br>um dich einzuloggen!</html>");
 	        countryField = new JTextField("Land");
@@ -206,7 +207,7 @@ public class SwingGuiRegister extends JFrame {
 	        
 	        loginPanel.add(new JLabel("						"));
 	        loginPanel.add(new JLabel("						"));
-	        loginPanel.add(new JLabel("						"));
+	        loginPanel.add(new JLabel("* Bitte ausfüllen	"));
 	        loginPanel.add(new JLabel("						"));
 	        loginPanel.add(new JLabel("						"));
 	        loginPanel.add(new JLabel("						"));
@@ -219,7 +220,9 @@ public class SwingGuiRegister extends JFrame {
 	        cPane.setLayout(new GridLayout(1, 1));
 	        cPane.add(loginPanel);
 	        
-
+	      //Enter für logIN
+	        loginPanel.getRootPane().setDefaultButton(registerButton);
+	        
 	        loginLabel.addActionListener(new RegisterActionListener());
 	        
 	        registerButton.addActionListener(new RegisterActionListener());
@@ -259,7 +262,7 @@ public class SwingGuiRegister extends JFrame {
 	    public static void main(String[] args) {
 	       ShopManager sho = null;
 		try {
-			sho = new ShopManager("datei");
+			sho = new ShopManager();
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -304,7 +307,7 @@ public class SwingGuiRegister extends JFrame {
                 }
 	        	
 	        	if (ae.getSource().equals(registerButton)) { 
-	        		Person p = null; 
+	        	
 	        		
 	        		final String nickName = nicknameField.getText(); 
 	        		final String firstName = firstNameField.getText(); 
@@ -312,14 +315,21 @@ public class SwingGuiRegister extends JFrame {
 	        		final String mail = mailField.getText(); 
 	        		final String passwort = pwField.getText(); 
 	        		final String streetNumber = streetNumberField.getText(); 
-	        		final String plz = plzField.getText(); 
+	        		final int plz =  Integer.parseInt(plzField.getText());
 	        		final String country = countryField.getText(); 
+	        		final float umsatz = 0;
 	        		System.out.println("Eingelogt mit Passwort: " + passwort + " und Name: " + nickName); 
 	        		try { 
-	        			sho.fuegeMitarbeiterHinzu(nickName, firstName, lastName, passwort); 
-	        			} catch (MitarbeiterExistiertBereitsException e) { 
-	        				// TODO Auto-generated catch block e.printStackTrace(); 
-	        			} 
+	        			//nickName, firstName, lastName, mail, passwort, streetNumber, plz, country, umsatz
+	        			sho.fuegeKundeHinzu(nickName, firstName, lastName, mail, passwort, streetNumber, plz, country, umsatz);
+	        			sho.schreibeKunde();
+	        			} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (KundeExistiertBereitsException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} 
 	        		}
 	        		
 	        	}

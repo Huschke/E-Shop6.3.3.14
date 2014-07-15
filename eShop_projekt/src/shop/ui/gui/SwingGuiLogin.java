@@ -197,6 +197,7 @@ public class SwingGuiLogin extends JFrame{
         cPane.setLayout(new GridLayout(1, 1));
         cPane.add(loginPanel);
         
+        //Enter für logIN
         loginPanel.getRootPane().setDefaultButton(loginButton);
         
         registrierButton.addActionListener(new LoginActionListener());
