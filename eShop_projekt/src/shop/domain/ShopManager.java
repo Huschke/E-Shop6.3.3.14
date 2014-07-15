@@ -9,24 +9,6 @@ import java.util.List;
 import java.util.Vector;
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import shop.exceptions.ArtikelExistiertBereitsException;
 import shop.exceptions.ArtikelMitNummerNichtGefundenException;
 import shop.exceptions.ArtikelNichtGefundenException;
