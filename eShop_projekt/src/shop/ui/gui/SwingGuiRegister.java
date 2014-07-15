@@ -109,10 +109,10 @@ public class SwingGuiRegister extends JFrame {
 	        
 	        loginPanel.add(new JLabel("						"));
 	        loginPanel.add(new JLabel("						"));
-	        lastNameField = new JTextField("Nachname");
+	        lastNameField = new JTextField("Nachname *");
 	        loginPanel.add(lastNameField);
 	        lastNameField.setToolTipText("<html>Hier kommt dein Nachname hin, Duh!</html>");
-	        firstNameField = new JTextField("Vorname");
+	        firstNameField = new JTextField("Vorname *");
 	        loginPanel.add(firstNameField);
 	        firstNameField.setToolTipText("<html>Hier kommt dein Vorname hin!</html>");
 	        loginPanel.add(new JLabel("						"));
@@ -130,7 +130,7 @@ public class SwingGuiRegister extends JFrame {
 	        mailField = new JTextField("E-Mail");
 	        loginPanel.add(mailField);
 	        mailField.setToolTipText("<html>Deine gültige E-mail Adresse.</html>");
-	        pwField = new JTextField("Passwort");
+	        pwField = new JTextField("Passwort *");
 	        loginPanel.add(pwField);
 	        pwField.setToolTipText("<html>Benutze ein Passwort, dass du<br> dir gut merken kannst!</html>");
 	        loginPanel.add(new JLabel("						"));
@@ -145,7 +145,7 @@ public class SwingGuiRegister extends JFrame {
 	        
 	        loginPanel.add(new JLabel("						"));
 	        loginPanel.add(new JLabel("						"));
-	        nicknameField = new JTextField("Nickname");
+	        nicknameField = new JTextField("Nickname *");
 	        loginPanel.add(nicknameField);
 	        nicknameField.setToolTipText("<html>Den Nicknamen brauchst du,<br>um dich einzuloggen!</html>");
 	        countryField = new JTextField("Land");
@@ -206,7 +206,7 @@ public class SwingGuiRegister extends JFrame {
 	        
 	        loginPanel.add(new JLabel("						"));
 	        loginPanel.add(new JLabel("						"));
-	        loginPanel.add(new JLabel("						"));
+	        loginPanel.add(new JLabel("	Bitte ausfüllen		"));
 	        loginPanel.add(new JLabel("						"));
 	        loginPanel.add(new JLabel("						"));
 	        loginPanel.add(new JLabel("						"));
