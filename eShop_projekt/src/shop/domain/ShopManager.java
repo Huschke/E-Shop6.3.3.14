@@ -92,6 +92,7 @@ public class ShopManager {
 	
 	public void artikelBestandVeraendern (String artikelId, int bestand) {
 		listeArtikel.bestandVeraendern(artikelId, bestand);
+		System.out.println(bestand);
 	}
 	
 	/**

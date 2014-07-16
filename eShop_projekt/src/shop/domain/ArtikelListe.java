@@ -9,6 +9,8 @@ import java.util.Vector;
 import java.io.IOException;
 
 
+
+
 import shop.exceptions.ArtikelExistiertBereitsException;
 import shop.exceptions.ArtikelMitNummerNichtGefundenException;
 import shop.exceptions.ArtikelNichtGefundenException;
@@ -197,14 +199,20 @@ public class ArtikelListe {
 		
 		Iterator<Artikel> iter = artikelListe.iterator();
 		while (iter.hasNext()) {
+			System.out.println(iter.hasNext());
 			Artikel artikel = iter.next();
 			if (artikel.getArtikelID() == artikelNummer) {
 				index = artikelListe.indexOf(artikel);
-			}
+			}	
 		}
+		
+		System.out.println(artikelListe.get(index).getArtikelMenge() + " yolooooo digga!");
+		
 		if (index != -1) {
 			artikelListe.get(index).setArtikelMenge(artikelListe.get(index).getArtikelMenge() + anzahl);
+			
 		}
+		
 	}
 	
 	

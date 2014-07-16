@@ -8,8 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.Vector;
-import javax.swing.JOptionPane;
 
+import javax.swing.JOptionPane;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -234,6 +234,16 @@ public class SwingGuiBuy extends JFrame {
         		System.out.println("warenkorb");
 				SwingGuiWarenkorb sgw = new SwingGuiWarenkorb("The Sheb Wop - Warenkorb");
         	}
+        	if(ae.getSource().equals(kaufButton)){
+    			final String alteId = kaufIdField.getText();
+                final int neuerBestand = Integer.parseInt(kaufArtikelField.getText());
+                JOptionPane.showMessageDialog(null,
+                        "Anzahl von Artikel " + alteId +  " wurde geändert.",
+                        "Artikelbestand geändert",					      
+                        JOptionPane.WARNING_MESSAGE);
+                sho.artikelBestandVeraendern(alteId, neuerBestand);
+           
+    	}
         }
     }
 
