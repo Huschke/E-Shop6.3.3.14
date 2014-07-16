@@ -199,16 +199,19 @@ public class ArtikelListe {
 		
 		Iterator<Artikel> iter = artikelListe.iterator();
 		while (iter.hasNext()) {
-			System.out.println(iter.hasNext());
 			Artikel artikel = iter.next();
+			
+			//System.out.println("atikelnum: " + artikelNummer);
+			//System.out.println("id: " + artikel.getArtikelID());
 			if (artikel.getArtikelID() == artikelNummer) {
+				System.out.println("~~~~~");
 				index = artikelListe.indexOf(artikel);
 			}	
 		}
-		
-		if (index != 0) {
-			artikelListe.get(index).setArtikelMenge(artikelListe.get(index).getArtikelMenge() + anzahl);
-			
+		//System.out.println("index: " + index);
+		int alterBestand = artikelListe.get(index).getArtikelMenge();
+		if (index == 0) {
+			artikelListe.get(index).setArtikelMenge((artikelListe.get(index).getArtikelMenge() + anzahl) - alterBestand);			
 		}
 		
 	}
