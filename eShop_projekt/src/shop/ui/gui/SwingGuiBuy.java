@@ -251,7 +251,12 @@ public class SwingGuiBuy extends JFrame {
         		//setVisible(false);
 				//dispose();
         		System.out.println("warenkorb");
-				SwingGuiWarenkorb sgw = new SwingGuiWarenkorb("The Sheb Wop - Warenkorb");
+				try {
+					SwingGuiWarenkorb sgw = new SwingGuiWarenkorb("The Sheb Wop - Warenkorb");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
         	}
         	if(ae.getSource().equals(kaufButton)){
     			final String alteId = kaufIdField.getText();
