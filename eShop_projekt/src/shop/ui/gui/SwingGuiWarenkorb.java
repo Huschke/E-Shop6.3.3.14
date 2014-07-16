@@ -38,8 +38,9 @@ public class SwingGuiWarenkorb extends JFrame{
     private JTextField searchField;
     private JTextField kaufIdField;
     private JTextField kaufAnzField;
-    private JButton losButton;
+    
     private JTable artikelTable;
+    private JButton anzeigeButton;
 
     private JButton warenkorbLeerenButton;
     private JButton kaufButton;
@@ -76,7 +77,7 @@ public class SwingGuiWarenkorb extends JFrame{
         // Eigentlich bräuchten wir nur 3 Zeilen für dieses Panel.
         // Es wird die gleiche Anzahl wie oben verwendet, damit die Textfelder /
         // Buttons etc. gleich skaliert werden:
-        searchPanel.setLayout(new GridLayout(7, 2));
+        searchPanel.setLayout(new GridLayout(8, 2));
         // Leerzeile im Layout...
         
         searchPanel.add(new JLabel(""));
@@ -85,43 +86,21 @@ public class SwingGuiWarenkorb extends JFrame{
         searchPanel.add(new JLabel(""));
         warenkorbLeerenButton = new JButton("Warenkorb leeren");
         searchPanel.add(warenkorbLeerenButton);
-        
-        
-
-        searchPanel.setBorder(BorderFactory.createTitledBorder("Home"));
-
-        // Linke Seite unten
-        final JPanel infoPanel = new JPanel();
-        infoPanel.setLayout(new GridLayout(5, 2));
-        infoPanel.add(new JLabel(""));
-        infoPanel.add(new JLabel(""));
-        kaufIdField = new JTextField("ID");
-        infoPanel.add(kaufIdField);
-        
-        kaufAnzField = new JTextField("Stückzahl");
-        infoPanel.add(kaufAnzField);
-        
-        infoPanel.add(new JLabel(""));
-        infoPanel.add(new JLabel(""));
-        
-        infoPanel.add(new JLabel(""));
-        
-        kaufButton = new JButton("in den Warenkorb");
-        infoPanel.add(kaufButton);
-        
-        infoPanel.add(new JLabel(""));
-        infoPanel.add(new JLabel(""));
+        anzeigeButton = new JButton("Warenkorb anzeigen");
+        searchPanel.add(anzeigeButton);
         
 
-        infoPanel.setBorder(BorderFactory.createTitledBorder("Kaufen"));
+        searchPanel.setBorder(BorderFactory.createTitledBorder("Bestellen"));
+
+     
         
         // Linke Seite...
         final JPanel leftPanel = new JPanel();
-        leftPanel.setLayout(new GridLayout(2, 1));
+        leftPanel.setLayout(new GridLayout(1, 1));
         // ... besteht aus dem upper und dem lower Panel
         
         leftPanel.add(searchPanel);
-        leftPanel.add(infoPanel);
+       
 
         // Rechte Seite (Swing-Liste)
 
@@ -146,11 +125,12 @@ public class SwingGuiWarenkorb extends JFrame{
         cPane.add(leftPanel);
         cPane.add(east);
 
-        leftPanel.getRootPane().setDefaultButton(losButton);
+        leftPanel.getRootPane().setDefaultButton(anzeigeButton);
         
        
         warenkorbLeerenButton.addActionListener(new SearchActionListener());
         kaufButton.addActionListener(new SearchActionListener());
+        anzeigeButton.addActionListener(new SearchActionListener());
         
         // Menüs
         final JMenu fileMenu = new FileMenu();
@@ -200,8 +180,16 @@ public class SwingGuiWarenkorb extends JFrame{
                         "Bestellung",					      
                         JOptionPane.WARNING_MESSAGE);
                //sho.zeigeRechnung();
+                
+                
            
     	}
+        	if(ae.getSource().equals(anzeigeButton)){
+            	java.util.List<Artikel> art = null;
+        		art = sho.gibAlleArtikel();
+                final ArtikelTableModel tModel = (ArtikelTableModel) artikelTable.getModel();
+                tModel.setDataVector(art);
+            }
         }
     }
 
