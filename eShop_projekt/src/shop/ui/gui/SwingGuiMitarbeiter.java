@@ -47,12 +47,14 @@ public class SwingGuiMitarbeiter extends JFrame {
     private JButton logOutButton;
     private JButton warenkorbButton;
     private JButton addButton;
+    private JButton aendereBestandButton;
     private JTextField artikelIdField;
     private JTextField artikelNameField;
     private JTextField preisField;
     private JTextField bestandField;
     private JTextField verfuegbarField;
-    
+    private JTextField bestandAendernField;
+    private JTextField idAendernField;
     
   
 
@@ -114,16 +116,12 @@ public class SwingGuiMitarbeiter extends JFrame {
       
  
         final JPanel addPanel = new JPanel();
-        addPanel.setLayout(new GridLayout(5, 2));
+        addPanel.setLayout(new GridLayout(6, 2));
         
         artikelIdField = new JTextField("Artikel ID");
         addPanel.add(artikelIdField);
-        
         artikelNameField = new JTextField("Artikel Name");
         addPanel.add(artikelNameField);
-        
-        addPanel.add(new JLabel("")); 
-        addPanel.add(new JLabel(""));
         
         preisField = new JTextField("Preis");
         addPanel.add(preisField);
@@ -131,15 +129,23 @@ public class SwingGuiMitarbeiter extends JFrame {
         addPanel.add(bestandField);
         
         addPanel.add(new JLabel(""));
-        addPanel.add(new JLabel(""));
-        
-        
-        addPanel.add(new JLabel(""));
         addButton = new JButton("Hinzufügen");
         addPanel.add(addButton);
+        
+        addPanel.add(new JLabel(""));
+        addPanel.add(new JLabel(""));
+        idAendernField = new JTextField("ID");
+        addPanel.add(idAendernField);
+        bestandAendernField = new JTextField("Neuer Bestand");
+        addPanel.add(bestandAendernField); 
+        addPanel.add(new JLabel(""));
+        aendereBestandButton = new JButton("Bestand ändern");
+        addPanel.add(aendereBestandButton);
+        
+        
  
 
-        addPanel.setBorder(BorderFactory.createTitledBorder("Artikel hinzufügen"));
+        addPanel.setBorder(BorderFactory.createTitledBorder("Wareneinspeisung"));
 
         // Linke Seite...
         final JPanel leftPanel = new JPanel();
@@ -180,6 +186,7 @@ public class SwingGuiMitarbeiter extends JFrame {
         losButton.addActionListener(new SearchActionListener());
         warenkorbButton.addActionListener(new SearchActionListener());
         addButton.addActionListener(new SearchActionListener());
+        aendereBestandButton.addActionListener(new SearchActionListener());
         
         // Menüs
         final JMenu fileMenu = new FileMenu();
@@ -275,7 +282,7 @@ public class SwingGuiMitarbeiter extends JFrame {
                     JOptionPane.showMessageDialog(null,
                             "Artikel mit name " + name + " und ID " + Id
                             + " wurde hinzugefügt.",
-                            "Login Fehler",					      
+                            "Artikel hinzugefügt",					      
                             JOptionPane.WARNING_MESSAGE);
                    
                     try {
@@ -291,6 +298,17 @@ public class SwingGuiMitarbeiter extends JFrame {
 
                 }
         	}
+        		if(ae.getSource().equals(aendereBestandButton)){
+        			final String alteId = idAendernField.getText();
+                    final int neuerBestand = Integer.parseInt(bestandAendernField.getText());
+                    JOptionPane.showMessageDialog(null,
+                            "Anzahl von Artikel " + alteId +  " wurde geändert.",
+                            "Artikelbestand geändert",					      
+                            JOptionPane.WARNING_MESSAGE);
+                    sho.artikelBestandVeraendern(alteId, neuerBestand);
+               
+        	}
+        	
         }
     }
 
