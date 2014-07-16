@@ -40,11 +40,14 @@ public class SwingGuiBuy extends JFrame {
     private final ShopManager sho;
 
     private JTextField searchField;
+    private JTextField kaufIdField;
+    private JTextField kaufAnzField;
     private JButton losButton;
     private JTable artikelTable;
     private JButton alleArtikelButton;
     private JButton logOutButton;
     private JButton warenkorbButton;
+    private JButton kaufButton;
     
   
 
@@ -108,14 +111,29 @@ public class SwingGuiBuy extends JFrame {
 
         // Linke Seite unten
         final JPanel infoPanel = new JPanel();
-        infoPanel.setLayout(new GridLayout(1, 1));
-        infoText = new JTextArea();
-        infoText.setLineWrap(true);
-        infoText.setEnabled(false);
-        infoPanel.add(infoText);
+        infoPanel.setLayout(new GridLayout(5, 2));
+        infoPanel.add(new JLabel(""));
+        infoPanel.add(new JLabel(""));
+        kaufIdField = new JTextField("ID");
+        infoPanel.add(kaufIdField);
+        
+        kaufAnzField = new JTextField("Stückzahl");
+        infoPanel.add(kaufAnzField);
+        
+        infoPanel.add(new JLabel(""));
+        infoPanel.add(new JLabel(""));
+        
+        infoPanel.add(new JLabel(""));
+        
+        kaufButton = new JButton("in den Warenkorb");
+        infoPanel.add(kaufButton);
+        
+        infoPanel.add(new JLabel(""));
+        infoPanel.add(new JLabel(""));
+        
 
-        infoPanel.setBorder(BorderFactory.createTitledBorder(""));
-
+        infoPanel.setBorder(BorderFactory.createTitledBorder("Kaufen"));
+        
         // Linke Seite...
         final JPanel leftPanel = new JPanel();
         leftPanel.setLayout(new GridLayout(2, 1));
@@ -154,7 +172,8 @@ public class SwingGuiBuy extends JFrame {
         logOutButton.addActionListener(new SearchActionListener());
         losButton.addActionListener(new SearchActionListener());
         warenkorbButton.addActionListener(new SearchActionListener());
-
+        kaufButton.addActionListener(new SearchActionListener());
+        
         // Menüs
         final JMenu fileMenu = new FileMenu();
 
@@ -236,12 +255,12 @@ public class SwingGuiBuy extends JFrame {
         	}
         	if(ae.getSource().equals(kaufButton)){
     			final String alteId = kaufIdField.getText();
-                final int neuerBestand = Integer.parseInt(kaufArtikelField.getText());
+                final int neuerBestand = Integer.parseInt(kaufAnzField.getText());
                 JOptionPane.showMessageDialog(null,
-                        "Anzahl von Artikel " + alteId +  " wurde geändert.",
-                        "Artikelbestand geändert",					      
+                        "Der Artikel mit der Nummer " + alteId +  " ist jetzt im Warenkorb",
+                        "in Warenkorb verschoben",					      
                         JOptionPane.WARNING_MESSAGE);
-                sho.artikelBestandVeraendern(alteId, neuerBestand);
+               sho.artikelKaufen(alteId, neuerBestand);
            
     	}
         }

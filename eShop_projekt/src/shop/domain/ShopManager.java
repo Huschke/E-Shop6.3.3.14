@@ -95,7 +95,7 @@ public class ShopManager {
 		System.out.println(bestand);
 	}
 	
-	public void artikelKaufen (Mitarbeiter mitarbeiter, String artikelId, String artikelName, float preis, int bestand, boolean verfuegbar) {
+	public void artikelKaufen ( String artikelId, int bestand) {
 		listeArtikel.kauf(artikelId, bestand);
 	}
 	
