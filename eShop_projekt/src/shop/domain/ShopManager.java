@@ -94,6 +94,10 @@ public class ShopManager {
 		listeArtikel.bestandVeraendern(artikelId, bestand);
 	}
 	
+	public void artikelKaufen (Mitarbeiter mitarbeiter, String artikelId, String artikelName, float preis, int bestand, boolean verfuegbar) {
+		listeArtikel.kauf(artikelId, bestand);
+	}
+	
 	/**
 	 * Methode zum Rueckegeben eines Artikel-Obektes
 	 * @param artikelID

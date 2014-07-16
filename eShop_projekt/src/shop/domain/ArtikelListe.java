@@ -207,6 +207,23 @@ public class ArtikelListe {
 		}
 	}
 	
+	public void kauf (String artikelNummer, int anzahl) {
+		int index = -1;
+		
+		Iterator<Artikel> iter = artikelListe.iterator();
+		while (iter.hasNext()) {
+			Artikel artikel = iter.next();
+			if (artikel.getArtikelID() == artikelNummer) {
+				index = artikelListe.indexOf(artikel);
+			}
+		}
+		if (index != -1) {
+			artikelListe.get(index).setArtikelMenge(artikelListe.get(index).getArtikelMenge() - anzahl);
+		}
+	}
+	
+	
+	
 	
 	/**
 	 * TODO
