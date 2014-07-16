@@ -276,7 +276,7 @@ public class SwingGuiLogin extends JFrame{
 					if(sho.mitarb == true){
 						try {
 							System.out.println("mitarbeiter login");
-							SwingGuiMitarbeiter sgb = new SwingGuiMitarbeiter("The Sheb Wop", passwort);
+							SwingGuiMitarbeiter sgb = new SwingGuiMitarbeiter("The Sheb Wop - Mitarbeiter-Lounge", passwort);
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -284,7 +284,7 @@ public class SwingGuiLogin extends JFrame{
 					}else{
 						System.out.println("kunden login");
 					try {
-						SwingGuiBuy sgb = new SwingGuiBuy("The Sheb Wop", passwort);
+						SwingGuiBuy sgb = new SwingGuiBuy("The Sheb Wop - Buy Area", passwort);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

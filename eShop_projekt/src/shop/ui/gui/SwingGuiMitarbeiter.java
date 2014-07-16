@@ -265,7 +265,12 @@ public class SwingGuiMitarbeiter extends JFrame {
                     final String preis = preisField.getText();
                     final Float flPreis = Float.valueOf(preis);
                     final int anzahl = Integer.parseInt(bestandField.getText());
-                    
+                    boolean verfuegbar = false;
+                    if(anzahl > 0){
+                    	verfuegbar = true;
+                    } else{
+                    	verfuegbar = false;
+                    }
                     
                     JOptionPane.showMessageDialog(null,
                             "Artikel mit name " + name + " und ID " + Id
@@ -274,7 +279,7 @@ public class SwingGuiMitarbeiter extends JFrame {
                             JOptionPane.WARNING_MESSAGE);
                    
                     try {
-                        sho.fuegeEinenArtikelEin( Id, name, flPreis, anzahl, true);
+                        sho.fuegeEinenArtikelEin( Id, name, flPreis, anzahl, verfuegbar);
                         sho.schreibeArtikel();
                     } catch (final ArtikelExistiertBereitsException e) {
                       
