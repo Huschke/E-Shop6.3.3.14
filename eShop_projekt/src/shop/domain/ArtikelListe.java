@@ -195,7 +195,7 @@ public class ArtikelListe {
 	
 	
 	public void bestandVeraendern (String artikelNummer, int anzahl) {
-		int index = -1;
+		int index = 0;
 		
 		Iterator<Artikel> iter = artikelListe.iterator();
 		while (iter.hasNext()) {
@@ -206,7 +206,7 @@ public class ArtikelListe {
 			}	
 		}
 		
-		if (index != -1) {
+		if (index != 0) {
 			artikelListe.get(index).setArtikelMenge(artikelListe.get(index).getArtikelMenge() + anzahl);
 			
 		}
