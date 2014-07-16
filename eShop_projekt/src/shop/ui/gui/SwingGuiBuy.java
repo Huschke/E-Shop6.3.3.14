@@ -114,7 +114,7 @@ public class SwingGuiBuy extends JFrame {
         infoText.setEnabled(false);
         infoPanel.add(infoText);
 
-        infoPanel.setBorder(BorderFactory.createTitledBorder("Info"));
+        infoPanel.setBorder(BorderFactory.createTitledBorder(""));
 
         // Linke Seite...
         final JPanel leftPanel = new JPanel();
@@ -205,6 +205,12 @@ public class SwingGuiBuy extends JFrame {
         
         	if (ae.getSource().equals(alleArtikelButton)){
         		java.util.List<Artikel> art = null;
+        		try {
+					sho.artikelIDSortieren();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
         		art = sho.gibAlleArtikel();
         		
         		final ArtikelTableModel tModel = (ArtikelTableModel) artikelTable.getModel();
@@ -215,7 +221,7 @@ public class SwingGuiBuy extends JFrame {
    
 					setVisible(false);
 					dispose();
-					SwingGuiLogin sgl = new SwingGuiLogin("The Sheb Wop", "shoFile");
+					SwingGuiLogin sgl = new SwingGuiLogin("The Sheb Wop - Login", "shoFile");
 
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
