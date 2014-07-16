@@ -90,7 +90,7 @@ public class ShopManager {
 		//TODO Massenartikel
 	}
 	
-	public void artikelBestandVeraendern (Mitarbeiter mitarbeiter, String artikelId, String artikelName, float preis, int bestand, boolean verfuegbar) {
+	public void artikelBestandVeraendern (String artikelId, int bestand) {
 		listeArtikel.bestandVeraendern(artikelId, bestand);
 	}
 	
