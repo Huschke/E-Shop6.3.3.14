@@ -546,9 +546,9 @@ public class ClientCUI {
 		}
 		
 		public static void main(String[] args) {
-			ShopClientCUI cui;
+			ClientCUI cui;
 			try {
-				cui = new ShopClientCUI();
+				cui = new ClientCUI();
 				cui.run();
 			} catch (IOException e) {
 				e.printStackTrace();
