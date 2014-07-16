@@ -91,7 +91,7 @@ public class ShopManager {
 	}
 	
 	public void artikelBestandVeraendern (Mitarbeiter mitarbeiter, String artikelId, String artikelName, float preis, int bestand, boolean verfuegbar) {
-		
+		listeArtikel.bestandVeraendern(artikelId, bestand);
 	}
 	
 	/**
