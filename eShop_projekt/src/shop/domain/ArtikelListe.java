@@ -203,14 +203,14 @@ public class ArtikelListe {
 			
 			//System.out.println("atikelnum: " + artikelNummer);
 			//System.out.println("id: " + artikel.getArtikelID());
-			if (artikel.getArtikelID() == artikelNummer) {
+			if (artikel.getArtikelID().equals(artikelNummer)) {
 				System.out.println("~~~~~");
 				index = artikelListe.indexOf(artikel);
 			}	
 		}
 		//System.out.println("index: " + index);
 		int alterBestand = artikelListe.get(index).getArtikelMenge();
-		if (index == 0) {
+		if (index != 0) {
 			artikelListe.get(index).setArtikelMenge((artikelListe.get(index).getArtikelMenge() + anzahl) - alterBestand);			
 		}
 		
