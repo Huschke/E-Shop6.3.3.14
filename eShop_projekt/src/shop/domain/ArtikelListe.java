@@ -204,11 +204,12 @@ public class ArtikelListe {
 		}
 		if (index != -1) {
 			artikelListe.get(index).setArtikelMenge(artikelListe.get(index).getArtikelMenge() + anzahl);
+			System.out.println(artikelListe.get(index).getArtikelMenge());
 		}
 	}
 	
 	public void kauf (String artikelNummer, int anzahl) {
-		int index = -1;
+		int index = 0;
 		
 		Iterator<Artikel> iter = artikelListe.iterator();
 		while (iter.hasNext()) {
@@ -217,7 +218,7 @@ public class ArtikelListe {
 				index = artikelListe.indexOf(artikel);
 			}
 		}
-		if (index != -1) {
+		if (index != 0) {
 			artikelListe.get(index).setArtikelMenge(artikelListe.get(index).getArtikelMenge() - anzahl);
 		}
 	}
